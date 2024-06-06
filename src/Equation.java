@@ -11,8 +11,8 @@ public class Equation {
 
 
     public Equation(double a, double b, double c){
-        List<Double> coeficients = Arrays.asList(a,b,c);
-        this.coeficients = coeficients;
+        List<Double> coef = Arrays.asList(a,b,c);
+        this.coeficients = coef;
         this.calculate();
     }
 
@@ -54,6 +54,7 @@ public class Equation {
         this.isImaginaryNumber = false;
     }
 
+    @Override
     public String toString(){
         return this.coeficients.get(0) + "x² + " + this.coeficients.get(1) + "x + " + this.coeficients.get(2) + " = 0";
     }
