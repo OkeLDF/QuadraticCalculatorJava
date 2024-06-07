@@ -82,15 +82,24 @@ public class Equation {
     }
 
     public void setA(double a){
-        this.coeficients.set(0, a);
+        this.setCoeficients(
+            a,
+            this.coeficients.get(1),
+            this.coeficients.get(2));
     }
 
     public void setB(double b){
-        this.coeficients.set(0, b);
+        this.setCoeficients(
+            this.coeficients.get(0),
+            b,
+            this.coeficients.get(2));
     }
 
     public void setC(double c){
-        this.coeficients.set(0, c);
+        this.setCoeficients(
+            this.coeficients.get(0),
+            this.coeficients.get(1),
+            c);
     }
 
     public double getDelta() {
