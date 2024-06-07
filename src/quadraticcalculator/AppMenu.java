@@ -1,10 +1,11 @@
+import java.io.IOException;
 import java.util.InputMismatchException;
 
 public abstract class AppMenu implements ErrorCodeNumbers{
     public static User currentUser = new User();
     private static boolean isRunning = true;
 
-    public static int mainLoop(){
+    public static int mainLoop() throws IOException{
         clearScreen();
         do{
             while(!currentUser.isLogged()){
@@ -37,7 +38,7 @@ public abstract class AppMenu implements ErrorCodeNumbers{
         }
     }
 
-    public static void callMainMenu(){
+    public static void callMainMenu() throws IOException{
         String[] options = {"(1) Calculadora", "(2) Histórico", "(3) Editar usuário", "(0) Sair"};
         int opt = MenuView.requestIntByOptions(options);
         

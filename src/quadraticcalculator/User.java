@@ -1,12 +1,16 @@
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class User implements ErrorCodeNumbers{
     private String name;
     private String password;
     private String historyFileName;
     private boolean isLogged;
+    Path historyPath;
 
     public User(){
         this.isLogged = false;
@@ -32,17 +36,21 @@ public class User implements ErrorCodeNumbers{
         
         this.isLogged = true;
         this.historyFileName = this.name + "_history.csv";
+        this.historyPath = Paths.get("..", "..", "files", historyFileName);
         return SUCCESS; // sucesso
     }
 
-    public boolean createHistoryFile(){
+    public boolean createHistoryFile(Path path){
+        
         return false;
     }
 
-    public boolean saveOnHistory(Equation equation){
+    public boolean saveOnHistory(Equation equation) throws IOException{
         if(equation==null) return false;
 
-        Path path = Paths.get("..", "..", "files", historyFileName);
+        
+        Stream<String> lines = Files.lines(this.historyPath); // StandardCharsets.ISO_8859_1
+        lines.forEach(x->System.out.println(x));
 
         return true;
     }
