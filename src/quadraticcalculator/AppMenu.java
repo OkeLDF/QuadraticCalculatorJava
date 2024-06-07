@@ -10,8 +10,8 @@ public abstract class AppMenu implements ErrorCodeNumbers{
             while(!currentUser.isLogged()){
                 callLoginMenu();
                 if(!isRunning) return SUCCESS;
-            }
-
+                }
+                
             callMainMenu();
 
         } while(isRunning);
@@ -48,6 +48,7 @@ public abstract class AppMenu implements ErrorCodeNumbers{
 
             case 1:
                 Equation eq = requestCoeficients();
+                currentUser.saveOnHistory(eq);
                 System.out.println(eq + "\n");
                 return;
         

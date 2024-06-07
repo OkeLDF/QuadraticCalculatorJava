@@ -78,6 +78,7 @@ public class Equation {
     public void setCoeficients(double a, double b, double c) {
         List<Double> coef = Arrays.asList(a,b,c);
         this.coeficients = coef;
+        this.calculate();
     }
 
     public void setA(double a){

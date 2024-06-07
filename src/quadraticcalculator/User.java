@@ -1,3 +1,7 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class User implements ErrorCodeNumbers{
     private String name;
     private String password;
@@ -29,6 +33,18 @@ public class User implements ErrorCodeNumbers{
         this.isLogged = true;
         this.historyFileName = this.name + "_history.csv";
         return SUCCESS; // sucesso
+    }
+
+    public boolean createHistoryFile(){
+        return false;
+    }
+
+    public boolean saveOnHistory(Equation equation){
+        if(equation==null) return false;
+
+        Path path = Paths.get("..", "..", "files", historyFileName);
+
+        return true;
     }
 
     public String toString(){
