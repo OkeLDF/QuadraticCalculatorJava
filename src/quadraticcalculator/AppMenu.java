@@ -97,6 +97,6 @@ public abstract class AppMenu implements ErrorCodeNumbers{
     }
 
     public static void clearScreen(){
-        System.out.print("\033[2J");
+        System.out.print("\n\n\033[2J");
     }
 }
