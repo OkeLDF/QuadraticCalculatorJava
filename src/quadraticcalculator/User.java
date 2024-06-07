@@ -1,12 +1,8 @@
-public class User {
+public class User implements ErrorCodeNumbers{
     private String name;
     private String password;
     private String historyFileName;
     private boolean isLogged;
-
-    public static final int SUCCESS = 0;
-    public static final int USER_NOT_FOUND = 1;
-    public static final int WRONG_PASSWORD = 2;
 
     public User(){
         this.isLogged = false;
