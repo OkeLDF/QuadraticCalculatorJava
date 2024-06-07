@@ -11,11 +11,10 @@ public class Equation {
 
     public Equation(double a, double b, double c){
         this.setCoeficients(a,b,c);
-        this.calculate();
     }
 
     public Equation(){
-        
+        this.setCoeficients(0,0,0);
     }
 
     public void calculate(){
@@ -25,6 +24,14 @@ public class Equation {
             c = this.coeficients.get(2);
         
         this.delta = b*b - 4*a*c;
+
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+
+        if(a == 0 && b == 0 && c == 0){
+            this.setResults(0,0);
+        }
 
         if(this.delta == 0){
             this.firstResult = -b/(2*a);
@@ -85,15 +92,24 @@ public class Equation {
     }
 
     public void setA(double a){
-        this.coeficients.set(0, a);
+        this.setCoeficients(
+            a,
+            this.coeficients.get(1),
+            this.coeficients.get(2));
     }
 
     public void setB(double b){
-        this.coeficients.set(0, b);
+        this.setCoeficients(
+            this.coeficients.get(0),
+            b,
+            this.coeficients.get(2));
     }
 
     public void setC(double c){
-        this.coeficients.set(0, c);
+        this.setCoeficients(
+            this.coeficients.get(0),
+            this.coeficients.get(1),
+            c);
     }
 
     public double getDelta() {
