@@ -14,6 +14,10 @@ public class Equation {
         this.calculate();
     }
 
+    public Equation(){
+        
+    }
+
     public void calculate(){
         double
             a = this.coeficients.get(0),

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JButton;
 
 public class Calc extends Tela {
+    private Equation equation = new Equation();
     private Double a = 0d, b = 0d, c = 0d;
     private Panel jpExpression, jpTotal, jpResult, jpX, jpX2, jpDelta, jpRoot, jpBtn;
     private JButton btnCalcular = new JButton("CALCULAR: ");
@@ -64,9 +65,14 @@ public class Calc extends Tela {
     }
 
     public void setResult(Double x, Double x2, Double delta) {
-        this.values.setxLabelValue(x.toString());
-        this.values.setx2LabelValue(x2.toString());
-        this.values.setDeltaLabelValue(delta.toString());
+        if (delta < 0) {
+            this.values.setxLabelValue(x + "+" + x2 + "*i");
+            this.values.setx2LabelValue(x + "-" + x2 + "*i");
+            this.values.setDeltaLabelValue(delta + "");
+        }
+        this.values.setxLabelValue(x + "");
+        this.values.setx2LabelValue(x2.toString() + "");
+        this.values.setDeltaLabelValue(delta.toString() + "");
     }
 
     public void fatherPanel() {
@@ -104,7 +110,19 @@ public class Calc extends Tela {
     }
 
     public void calcular(ActionEvent e) {
-        if (!this.catchValue()) return;
-        this.setResult(this.a,this.b,this.c);
+        if (!this.catchValue())
+            return;
+        System.out.println(this.a +"a");
+        this.equation.setA(this.a);
+        System.out.println(equation.getA() +"ab");
+        this.equation.setB(this.b);
+        this.equation.setC(this.c);
+        this.equation.calculate();
+
+        // this.equation.setCoeficients(this.a, this.b, this.c);
+
+        System.out.println(this.equation.getB());
+
+        this.setResult(this.equation.getFirstResult(), this.equation.getSecondResult(), this.equation.getDelta());
     }
 }
