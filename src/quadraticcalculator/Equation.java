@@ -54,13 +54,20 @@ public class Equation {
 
     @Override
     public String toString(){
-        return
-            this.coeficients.get(0) + "x² + " +
+        String prefix = this.coeficients.get(0) + "x² + " +
             this.coeficients.get(1) + "x + " +
-            this.coeficients.get(2) + " = 0\n" +
-            "delta: " + this.delta + "\n" +
-            " res1: " + this.firstResult + "\n" +
-            " res2: " + this.secondResult + "\n";
+            this.coeficients.get(2) + " = 0\n\n" +
+            "discriminante = " + this.delta + "\n\n";
+        
+        if(this.isImaginaryNumber){
+            double res2 = Math.abs(this.secondResult);
+            return prefix +
+            " x1 = " + this.firstResult + " + " + res2 + " * i\n" +
+            " x2 = " + this.firstResult + " - " + res2 + " * i";
+        }
+        return prefix +
+            " x1 = " + this.firstResult + "\n" +
+            " x2 = " + this.secondResult + "\n";
     }
 
     private void setResults(double firstResult, double secondResult){
