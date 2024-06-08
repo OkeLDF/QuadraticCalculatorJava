@@ -1,3 +1,5 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.InputMismatchException;
 
@@ -20,7 +22,7 @@ public abstract class AppMenu implements ErrorCodeNumbers{
         return SUCCESS;
     }
 
-    public static void callLoginMenu(){
+    public static void callLoginMenu() throws IOException{
         String[] options = {"(1) Login", "(2) Cadastrar", "(0) Sair"};
         int opt = MenuView.requestIntByOptions(options);
         
@@ -32,6 +34,11 @@ public abstract class AppMenu implements ErrorCodeNumbers{
             case 1:
                 requestLogin();
                 return;
+
+            case 2:
+                requestSignIn();
+                clearScreen();
+                return;
         
             default:
                 break;
@@ -39,9 +46,15 @@ public abstract class AppMenu implements ErrorCodeNumbers{
     }
 
     public static void callMainMenu() throws IOException{
-        String[] options = {"(1) Calculadora", "(2) Histórico", "(3) Editar usuário", "(0) Sair"};
+        String[] options = {
+            "(1) Calculadora",
+            "(2) Histórico",
+            "(3) Editar usuário",
+            "(4) Logout",
+            "(0) Sair"
+        };
         int opt = MenuView.requestIntByOptions(options);
-        
+
         switch (opt) {
             case 0:
                 isRunning=false;
@@ -52,15 +65,26 @@ public abstract class AppMenu implements ErrorCodeNumbers{
                 currentUser.saveOnHistory(eq);
                 System.out.println(eq + "\n");
                 return;
+
+            case 4:
+                currentUser.setLogged(false);
+                clearScreen();
+                return;
         
             default:
                 break;
         }
     }
 
-    public static boolean requestLogin(){
-        String name = MenuView.input("Insira um nome: ");
-        String password = MenuView.input("Insira a senha: ");
+    public static boolean requestLogin() throws IOException{
+        String name="", password=""; 
+
+        do {
+            name = MenuView.input("Insira um nome: ");
+        } while(name.strip().equals(""));
+        do {
+            password = MenuView.input("Insira a senha: ");
+        } while(password.strip().equals(""));
 
         clearScreen();
 
@@ -77,6 +101,22 @@ public abstract class AppMenu implements ErrorCodeNumbers{
         }
 
         return true;
+    }
+
+    public static void requestSignIn() throws IOException{
+        String name="", password=""; 
+        
+        do {
+            name = MenuView.input("Insira um nome: ");
+        } while(name.strip().equals(""));
+        do {
+            password = MenuView.input("Insira a senha: ");
+        } while(password.strip().equals(""));
+        
+        BufferedWriter writer = new BufferedWriter(
+            new FileWriter(User.usersFileName.toString(), true));
+        writer.write(name + "," + password + "\n");
+        writer.close();
     }
 
     public static Equation requestCoeficients(){
@@ -99,6 +139,6 @@ public abstract class AppMenu implements ErrorCodeNumbers{
     }
 
     public static void clearScreen(){
-        System.out.print("\n\n\033[2J");
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\033[2J");
     }
 }

@@ -2,34 +2,46 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class User implements ErrorCodeNumbers{
     private String name;
     private String password;
     private String historyFileName;
     private boolean isLogged;
-    Path historyPath;
+    private Path historyPath;
+    public static Path usersFileName;
 
     public User(){
         this.isLogged = false;
+        usersFileName = Paths.get("files", "users.csv");
     }
 
-    public int login(String name, String password, String fileToSearch){
-        /* Pendente:
-         * buscar nomes e senhas disponíveis em arquivo csv
-        */
+    public int login(String name, String password, String fileToSearch) throws IOException{
+        List<String> lines = Files.readAllLines(usersFileName);
 
         this.name = name;
         this.password = password;
-        
-        if(!name.equals("okeldf")){
+        boolean userExists = false;
+        String userCredentials = "";
+
+        for(String line : lines){
+            if(line.contains(name)){
+                userExists = true;
+                userCredentials = line;
+                break;
+            }
+        }
+
+        if(!userExists){
             this.isLogged = false;
             return USER_NOT_FOUND;
         } // usuário não encontrado
 
-        if(!password.equals("123")){
+        if(!password.equals(userCredentials.split(",")[1])){
             this.isLogged = false;
             return WRONG_PASSWORD;
         }// senha incorreta
@@ -40,11 +52,6 @@ public class User implements ErrorCodeNumbers{
         this.historyPath = Paths.get("files", historyFileName);
         return SUCCESS; // sucesso
     }
-
-    // public boolean createHistoryFile() throws IOException{
-    //     Files.createFile(this.historyPath);
-    //     return this.isHistoryCreated();
-    // }
 
     public boolean saveOnHistory(Equation equation) throws IOException{
         if(equation==null) return false;
@@ -100,12 +107,6 @@ public class User implements ErrorCodeNumbers{
     public boolean isLogged() {
         return isLogged;
     }
-
-    // public boolean isHistoryCreated(){
-    //     Path path = Paths.get(historyPath.toString());
-    //     if(path == null) return false;
-    //     return true;
-    // }
 
     public void setLogged(boolean isLogged) {
         this.isLogged = isLogged;
