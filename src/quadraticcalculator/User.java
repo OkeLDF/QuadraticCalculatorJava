@@ -23,6 +23,9 @@ public class User implements ErrorCodeNumbers{
     }
 
     public static boolean searchUser(String userName) throws IOException{
+        File fp = new File(usersFileName.toString());
+        if(!fp.exists()) fp.createNewFile();
+
         for(String line : Files.readAllLines(usersFileName)){
             if(line.split(",")[0].equals(userName)) return true;
         }
@@ -30,6 +33,8 @@ public class User implements ErrorCodeNumbers{
     }
 
     public int login(String name, String password, String fileToSearch) throws IOException{
+        File fp = new File(usersFileName.toString());
+        if(!fp.exists()) fp.createNewFile();
         List<String> lines = Files.readAllLines(usersFileName);
 
         this.name = name;
