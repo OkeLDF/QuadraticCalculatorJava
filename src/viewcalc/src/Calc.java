@@ -64,15 +64,19 @@ public class Calc extends Tela {
         this.jpTotal.add(jpBtn);
     }
 
-    public void setResult(Double x, Double x2, Double delta) {
+    public void setResult(Double x, Double x2, Double delta, Integer root) {
         if (delta < 0) {
             this.values.setxLabelValue(x + "+" + x2 + "*i");
             this.values.setx2LabelValue(x + "-" + x2 + "*i");
             this.values.setDeltaLabelValue(delta + "");
+            this.values.setRootLabel(root);
+            return;
         }
         this.values.setxLabelValue(x + "");
         this.values.setx2LabelValue(x2.toString() + "");
         this.values.setDeltaLabelValue(delta.toString() + "");
+        this.values.setRootLabel(root);
+
     }
 
     public void fatherPanel() {
@@ -86,10 +90,7 @@ public class Calc extends Tela {
         this.values.valuesExpression(); // configuar os valores a,b,c da
         this.jpExpression.configurarPanel();
         this.jpExpression.setLayout(new FlowLayout(FlowLayout.LEFT, 40, 20));
-        this.jpExpression.setOpaque(true);
-        this.values.getX().setForeground(Color.black);
-        this.values.getXQuadrado().setForeground(Color.black);
-        this.values.getZero().setForeground(Color.black);
+        this.jpExpression.setOpaque(false);
 
         this.values.getExpression().forEach(jpExpression::add);
         this.jpTotal.add(jpExpression);
@@ -112,9 +113,7 @@ public class Calc extends Tela {
     public void calcular(ActionEvent e) {
         if (!this.catchValue())
             return;
-        System.out.println(this.a +"a");
         this.equation.setA(this.a);
-        System.out.println(equation.getA() +"ab");
         this.equation.setB(this.b);
         this.equation.setC(this.c);
         this.equation.calculate();
@@ -123,6 +122,7 @@ public class Calc extends Tela {
 
         System.out.println(this.equation.getB());
 
-        this.setResult(this.equation.getFirstResult(), this.equation.getSecondResult(), this.equation.getDelta());
+        this.setResult(this.equation.getFirstResult(), this.equation.getSecondResult(), this.equation.getDelta(),
+                this.equation.getRootsQuantity());
     }
 }

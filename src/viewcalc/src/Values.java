@@ -84,12 +84,7 @@ public class Values {
     public void setRootLabel(Integer value) {
         this.rootLabel.setText("Numero de Raízes= " + value);
     }
-
-    // public void setExpressao(Double a, Double b, Double c) {
-    //     // "ax²+bx+c=0"
-    //     this.expressao.setText(a + "x²" + "+" + b + "x" + c + "=0");
-    // }
-
+ 
     public void setxLabelValue(String valor) {
         this.xLabel.setText("X= " + valor);
     }
