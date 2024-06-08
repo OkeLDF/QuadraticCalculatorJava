@@ -1,9 +1,9 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 public class User implements ErrorCodeNumbers{
     private String name;
@@ -36,21 +36,34 @@ public class User implements ErrorCodeNumbers{
         
         this.isLogged = true;
         this.historyFileName = this.name + "_history.csv";
-        this.historyPath = Paths.get("..", "..", "files", historyFileName);
+
+        this.historyPath = Paths.get("files", historyFileName);
         return SUCCESS; // sucesso
     }
 
-    public boolean createHistoryFile(Path path){
-        
-        return false;
-    }
+    // public boolean createHistoryFile() throws IOException{
+    //     Files.createFile(this.historyPath);
+    //     return this.isHistoryCreated();
+    // }
 
     public boolean saveOnHistory(Equation equation) throws IOException{
         if(equation==null) return false;
-
+        File fp = new File(this.historyPath.toString());
+        if(!fp.exists()) fp.createNewFile();
         
-        Stream<String> lines = Files.lines(this.historyPath); // StandardCharsets.ISO_8859_1
-        lines.forEach(x->System.out.println(x));
+        BufferedWriter writer = new BufferedWriter(
+            new FileWriter(this.historyPath.toString(), true));
+        
+        writer.write(
+            equation.getA() + "," +
+            equation.getB() + "," +
+            equation.getC() + "," +
+            equation.getDelta() + "," +
+            equation.getFirstResult() + "," +
+            equation.getSecondResult() + "," +
+            equation.getRootsQuantity() + "\n"
+        );
+        writer.close();
 
         return true;
     }
@@ -87,6 +100,12 @@ public class User implements ErrorCodeNumbers{
     public boolean isLogged() {
         return isLogged;
     }
+
+    // public boolean isHistoryCreated(){
+    //     Path path = Paths.get(historyPath.toString());
+    //     if(path == null) return false;
+    //     return true;
+    // }
 
     public void setLogged(boolean isLogged) {
         this.isLogged = isLogged;
