@@ -8,7 +8,7 @@ public abstract class AppMenu implements ErrorCodeNumbers{
     private static boolean isRunning = true;
 
     public static int mainLoop() throws IOException{
-        clearScreen();
+        MenuView.clearScreen();
         do{
             while(!currentUser.isLogged()){
                 callLoginMenu();
@@ -37,7 +37,7 @@ public abstract class AppMenu implements ErrorCodeNumbers{
 
             case 2:
                 requestSignIn();
-                clearScreen();
+                MenuView.clearScreen();
                 return;
         
             default:
@@ -68,7 +68,7 @@ public abstract class AppMenu implements ErrorCodeNumbers{
 
             case 4:
                 currentUser.setLogged(false);
-                clearScreen();
+                MenuView.clearScreen();
                 return;
         
             default:
@@ -86,7 +86,7 @@ public abstract class AppMenu implements ErrorCodeNumbers{
             password = MenuView.input("Insira a senha: ");
         } while(password.strip().equals(""));
 
-        clearScreen();
+        MenuView.clearScreen();
 
         int returnCode = currentUser.login(name, password, "users.csv");
         
@@ -120,25 +120,21 @@ public abstract class AppMenu implements ErrorCodeNumbers{
     }
 
     public static Equation requestCoeficients(){
-        clearScreen();
+        MenuView.clearScreen();
         System.out.println("ax² + bx + c = 0");
 
         double a=0, b=0, c=0;
         try{
-            a = MenuView.inputDouble("Insira o valor do coeficiente \033[1ma\033[m: ");
-            b = MenuView.inputDouble("Insira o valor do coeficiente \033[1mb\033[m: ");
-            c = MenuView.inputDouble("Insira o valor do coeficiente \033[1mc\033[m: ");
+            a = MenuView.inputDouble("Insira o valor do coeficiente 'a': ");
+            b = MenuView.inputDouble("Insira o valor do coeficiente 'b': ");
+            c = MenuView.inputDouble("Insira o valor do coeficiente 'c': ");
         }
         catch(InputMismatchException e){
-            clearScreen();
+            MenuView.clearScreen();
             System.out.println("Use somente números!\n");
             return null;
         }
-        clearScreen();
+        MenuView.clearScreen();
         return new Equation(a,b,c);
-    }
-
-    public static void clearScreen(){
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\033[2J");
     }
 }
