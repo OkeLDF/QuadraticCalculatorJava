@@ -1,4 +1,6 @@
+package logic;
 import java.util.InputMismatchException;
+
 
 public abstract class AppMenu implements ErrorCodeNumbers{
     public static User currentUser = new User();

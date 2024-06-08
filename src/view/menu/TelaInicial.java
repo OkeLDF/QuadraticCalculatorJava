@@ -9,12 +9,13 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import calc.Calc;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -29,6 +30,7 @@ public class TelaInicial extends JFrame {
     protected JPanel jpConfirma, jpCalc, jpVolta;
     protected JPanel panel;
     protected JButton btnHistorico, btnCalcular, bntLogout, bntEdit;
+    private Calc calcular  = new Calc();
 
     public TelaInicial() {
         configurarJanela();
@@ -87,31 +89,16 @@ public class TelaInicial extends JFrame {
 
         });
 
-        // this.bntEdit.setBorder(null);
-        // this.bntEdit.setOpaque(false);
-
-        // this.btnHistorico.setPreferredSize(new Dimension(100, 80));
-        // this.btnHistorico.setBackground(Color.black);
-        // this.btnHistorico.setBorder(null);
-        // this.btnHistorico.setOpaque(false);
-        // this.btnHistorico.setFocusPainted(false);
-
-        // this.btnCalcular.setPreferredSize(new Dimension(100, 80));
-        // this.btnCalcular.setBackground(Color.black);
-        // this.btnCalcular.setBorder(null);
-        // this.btnCalcular.setOpaque(false);
-        // this.btnCalcular.setFocusPainted(false);
-
-        // this.bntLogout.setPreferredSize(new Dimension(100, 80));
-        // this.bntLogout.setBackground(Color.BLACK);
-        // this.bntLogout.setBorder(null);
-        // this.bntLogout.setOpaque(false);
-        // this.bntLogout.setFocusPainted(false);
+        bntList.forEach(e -> e.addActionListener(this::escolha));
 
     }
 
     private void escolha(ActionEvent event) {
-
+        if (this.btnCalcular.equals(event.getSource())) {
+            this.dispose();
+            this.calcular.init();
+            return;
+        }
     }
 
 }

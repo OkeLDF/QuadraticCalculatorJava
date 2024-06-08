@@ -1,3 +1,4 @@
+package calc;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -5,6 +6,11 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
+
+import logic.Equation;
+
+
+
 
 public class Calc extends Tela {
     private Equation equation = new Equation();
@@ -24,13 +30,11 @@ public class Calc extends Tela {
         this.jpBtn = new Panel();
         this.btnCalcular = new JButton("CALCULAR: ");
     }
-
-    public Calc() {
+    public void init(){
         this.configuraFrame();
         this.values.configurarValues();
         this.configuarPanel();
     }
-
     public void definirBtns() {
         this.btnCalcular.setBackground(Color.green);
         this.btnCalcular.addActionListener(this::calcular);

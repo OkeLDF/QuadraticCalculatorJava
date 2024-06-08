@@ -1,3 +1,5 @@
+package logic;
+
 public interface ErrorCodeNumbers {
     public static final int SUCCESS = 0;
     public static final int USER_NOT_FOUND = 1;

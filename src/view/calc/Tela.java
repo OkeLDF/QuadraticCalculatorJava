@@ -1,3 +1,5 @@
+package calc;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 

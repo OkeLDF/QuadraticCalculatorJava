@@ -1,39 +1,42 @@
-public class User implements ErrorCodeNumbers{
+package logic;
+
+public class User implements ErrorCodeNumbers {
     private String name;
     private String password;
     private String historyFileName;
     private boolean isLogged;
 
-    public User(){
+    public User() {
         this.isLogged = false;
     }
 
-    public int login(String name, String password, String fileToSearch){
-        /* Pendente:
+    public int login(String name, String password, String fileToSearch) {
+        /*
+         * Pendente:
          * buscar nomes e senhas disponíveis em arquivo csv
-        */
+         */
 
         this.name = name;
         this.password = password;
-        
-        if(!name.equals("okeldf")){
+
+        if (!name.equals("okeldf")) {
             this.isLogged = false;
             return USER_NOT_FOUND;
         } // usuário não encontrado
 
-        if(!password.equals("123")){
+        if (!password.equals("123")) {
             this.isLogged = false;
             return WRONG_PASSWORD;
-        }// senha incorreta
-        
+        } // senha incorreta
+
         this.isLogged = true;
         this.historyFileName = this.name + "_history.csv";
         return SUCCESS; // sucesso
     }
 
-    public String toString(){
+    public String toString() {
         return "\033[33m" + this.name + "\033[m: " +
-         (this.isLogged?"\033[32mactive":"\033[31minactive") + "\033[m";
+                (this.isLogged ? "\033[32mactive" : "\033[31minactive") + "\033[m";
     }
 
     public String getName() {
@@ -67,5 +70,5 @@ public class User implements ErrorCodeNumbers{
     public void setLogged(boolean isLogged) {
         this.isLogged = isLogged;
     }
-    
+
 }
