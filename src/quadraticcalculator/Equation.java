@@ -65,20 +65,25 @@ public class Equation {
 
     @Override
     public String toString(){
-        String prefix = this.coeficients.get(0) + "x² + " +
-            this.coeficients.get(1) + "x + " +
-            this.coeficients.get(2) + " = 0\n\n" +
-            "discriminante = " + this.delta + "\n\n";
+        String prefix = this.getA() + "x² + " +
+            this.getB() + "x + " +
+            this.getC() + " = 0\n\n" +
+            "discriminante = " + this.getDelta() + "\n\n";
         
         if(this.isImaginaryNumber){
-            double res2 = Math.abs(this.secondResult);
+            double res2 = Math.abs(this.getSecondResult());
             return prefix +
-            " x1 = " + this.firstResult + " + " + res2 + " * i\n" +
-            " x2 = " + this.firstResult + " - " + res2 + " * i";
+            " x1 = " + this.getFirstResult() + " + " + res2 + " * i\n" +
+            " x2 = " + this.getFirstResult() + " - " + res2 + " * i";
         }
         return prefix +
-            " x1 = " + this.firstResult + "\n" +
-            " x2 = " + this.secondResult + "\n";
+            " x1 = " + this.getFirstResult() + "\n" +
+            " x2 = " + this.getSecondResult() + "\n";
+    }
+
+    public static double to3Digit(double x){
+        double y = Math.round(x*1000);
+        return y/1000;
     }
 
     private void setResults(double firstResult, double secondResult){
@@ -89,6 +94,7 @@ public class Equation {
     public void setCoeficients(double a, double b, double c) {
         List<Double> coef = Arrays.asList(a,b,c);
         this.coeficients = coef;
+        this.calculate();
     }
 
     public void setA(double a){
@@ -113,15 +119,15 @@ public class Equation {
     }
 
     public double getDelta() {
-        return delta;
+        return to3Digit(delta);
     }
 
     public double getFirstResult() {
-        return firstResult;
+        return to3Digit(firstResult);
     }
 
     public double getSecondResult() {
-        return secondResult;
+        return to3Digit(secondResult);
     }
 
     public int getRootsQuantity() {
@@ -137,14 +143,14 @@ public class Equation {
     }
 
     public double getA(){
-        return coeficients.get(0);
+        return to3Digit(coeficients.get(0));
     }
 
     public double getB(){
-        return coeficients.get(1);
+        return to3Digit(coeficients.get(1));
     }
 
     public double getC(){
-        return coeficients.get(2);
+        return to3Digit(coeficients.get(2));
     }
 }
