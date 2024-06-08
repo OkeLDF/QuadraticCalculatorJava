@@ -2,8 +2,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.InputMismatchException;
+import java.util.List;
 
-public abstract class AppMenu implements ErrorCodeNumbers{
+public abstract class AppMenu implements ErrorCodeNumbers {
     public static User currentUser = new User();
     private static boolean isRunning = true;
 
@@ -37,8 +38,94 @@ public abstract class AppMenu implements ErrorCodeNumbers{
 
             case 2:
                 requestSignIn();
-                MenuView.clearScreen();
                 return;
+        
+            default:
+                break;
+        }
+    }
+
+    public static void callHistory() throws IOException{
+        List<List<String>> historyEntries = currentUser.getHistoryEntries();
+        int historySize = historyEntries.size();
+        if(historySize==0){
+            MenuView.clearScreen();
+            System.out.println("Histórico vazio!\n");
+            return;
+        }
+        Equation eq = new Equation();
+        
+        for(int i=0;;){
+            MenuView.clearScreen();
+            eq.setCoeficients(
+                Double.parseDouble(historyEntries.get(i).get(0)),
+                Double.parseDouble(historyEntries.get(i).get(1)),
+                Double.parseDouble(historyEntries.get(i).get(2)));
+            
+            System.out.println("[" + (i+1) + "]\n\n" + eq + "\n");
+
+            String[] options = {"(1) Próximo", "(2) Anterior", "(3) Apagar histórico", "(0) Voltar"};
+            int r = MenuView.requestIntByOptions(options);
+
+            switch (r) {
+                case 1:
+                    if(++i >= historySize) i=0;
+                    break;
+
+                case 2:
+                    if(--i < 0) i=historySize-1;
+                    break;
+
+                case 3:
+                    String x = MenuView.input("Apagar histórico? Digite 'apagar': ");
+                    if(!x.strip().equals("apagar")) break;
+                    currentUser.clearHistory();
+                    MenuView.clearScreen();
+                    return;
+            
+                case 0:
+                    MenuView.clearScreen();
+                    return;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    public static void callEditMenu() throws IOException{
+        MenuView.clearScreen();
+        System.out.println("EDITAR INFORMAÇÕES DO USUÁRIO:\n");
+        System.out.println("Nome  : " + currentUser.getName());
+        System.out.println("Senha : " + currentUser.getPassword() + "\n");
+
+        String[] options = {"(1) Editar nome", "(2) Editar senha", "(0) Voltar"};
+        int r = MenuView.requestIntByOptions(options);
+
+        switch (r) {
+            case 1:
+                String newName = MenuView.input("Insira o novo nome: ");
+                if(!currentUser.updateName(newName)){
+                    MenuView.clearScreen();
+                    System.out.println("Não use vírgulas!\n");
+                    break;
+                }
+                MenuView.clearScreen();
+                break;
+                
+            case 2:
+                String newPassword = MenuView.input("Insira a nova senha: ");
+                if(!currentUser.updatePassword(newPassword)){
+                    MenuView.clearScreen();
+                    System.out.println("Não use vírgulas!\n");
+                    break;
+                }
+                MenuView.clearScreen();
+                break;
+
+            case 0:
+                MenuView.clearScreen();
+                break;
         
             default:
                 break;
@@ -64,6 +151,14 @@ public abstract class AppMenu implements ErrorCodeNumbers{
                 Equation eq = requestCoeficients();
                 currentUser.saveOnHistory(eq);
                 System.out.println(eq + "\n");
+                return;
+
+            case 2:
+                callHistory();
+                return;
+
+            case 3:
+                callEditMenu();
                 return;
 
             case 4:
@@ -109,14 +204,33 @@ public abstract class AppMenu implements ErrorCodeNumbers{
         do {
             name = MenuView.input("Insira um nome: ");
         } while(name.strip().equals(""));
+
+        if(User.searchUser(name)){
+            MenuView.clearScreen();
+            System.out.println("Esse nome já está sendo utilizado!\n");
+            return;
+        }
+        if(name.contains(",")){
+            MenuView.clearScreen();
+            System.out.println("Não use vírgulas!\n");
+            return;
+        }
+
         do {
             password = MenuView.input("Insira a senha: ");
         } while(password.strip().equals(""));
         
+        if(password.contains(",")){
+            MenuView.clearScreen();
+            System.out.println("Não use vírgulas!\n");
+            return;
+        }
+
         BufferedWriter writer = new BufferedWriter(
             new FileWriter(User.usersFileName.toString(), true));
         writer.write(name + "," + password + "\n");
         writer.close();
+        MenuView.clearScreen();
     }
 
     public static Equation requestCoeficients(){

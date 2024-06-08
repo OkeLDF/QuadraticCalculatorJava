@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class User implements ErrorCodeNumbers{
@@ -15,9 +17,16 @@ public class User implements ErrorCodeNumbers{
     private Path historyPath;
     public static Path usersFileName;
 
-    public User(){
+    public User() {
         this.isLogged = false;
         usersFileName = Paths.get("files", "users.csv");
+    }
+
+    public static boolean searchUser(String userName) throws IOException{
+        for(String line : Files.readAllLines(usersFileName)){
+            if(line.split(",")[0].equals(userName)) return true;
+        }
+        return false;
     }
 
     public int login(String name, String password, String fileToSearch) throws IOException{
@@ -72,6 +81,66 @@ public class User implements ErrorCodeNumbers{
         );
         writer.close();
 
+        return true;
+    }
+
+    public List<List<String>> getHistoryEntries() throws IOException{
+        List<String> rawHistory = Files.readAllLines(this.historyPath);
+        List<List<String>> splitHistory = new ArrayList<List<String>>();
+
+        for(String line : rawHistory){
+            splitHistory.add(Arrays.asList(line.split(",")));
+        }
+
+        return splitHistory;
+    }
+
+    public void clearHistory() throws IOException{
+        BufferedWriter writer = new BufferedWriter(
+            new FileWriter(this.historyPath.toString(), false));
+        writer.write("");
+        writer.close();
+    }
+
+    public boolean updateName(String newName) throws IOException{
+        if(newName.contains(",")) return false;
+
+        List<String> newLines = new ArrayList<String>();
+
+        for(String line : Files.readAllLines(usersFileName)){
+            String userName = line.split(",")[0];
+
+            if(userName.equals(this.getName())){
+                newLines.add(line.replace(this.getName(), newName));
+                continue;
+            }
+            newLines.add(line);
+        }
+
+        this.setName(newName);
+        Files.write(usersFileName, newLines);
+        return true;
+    }
+
+    public boolean updatePassword(String newPassword) throws IOException{
+        if(newPassword.contains(",")) return false;
+        
+        List<String> newLines = new ArrayList<String>();
+
+        for(String line : Files.readAllLines(usersFileName)){
+            String userName = line.split(",")[0];
+            String userPassword = line.split(",")[1];
+
+            if(userPassword.equals(this.getPassword())
+               && userName.equals(this.getName())){
+                newLines.add(line.replace(this.getPassword(), newPassword));
+                continue;
+            }
+            newLines.add(line);
+        }
+
+        this.setPassword(newPassword);
+        Files.write(usersFileName, newLines);
         return true;
     }
 
