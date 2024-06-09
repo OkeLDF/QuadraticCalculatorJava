@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import calc.Calc;
+import user.Login;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -30,17 +31,20 @@ public class TelaInicial extends JFrame {
     protected JPanel jpConfirma, jpCalc, jpVolta;
     protected JPanel panel;
     protected JButton btnHistorico, btnCalcular, bntLogout, bntEdit;
-    private Calc calcular  = new Calc();
+    private Calc calcular = new Calc();
+    private Login login = new Login();
 
     public TelaInicial() {
-        
+
     }
-    
-    public void init (){
+
+    public void init(Login login) {
+        this.login = login;
         configurarJanela();
         configurarPanel();
         this.setVisible(true);
     }
+
     protected void configurarJanela() {
         panel = new JPanel();
         this.panel.setBackground(Color.black);
@@ -101,8 +105,12 @@ public class TelaInicial extends JFrame {
         if (this.btnCalcular.equals(event.getSource())) {
             this.setVisible(false);
             this.calcular.init(this);
+        } else if (this.bntLogout.equals(event.getSource())) {
+            login.dispose();
+            this.dispose();
+            login = new Login();
+            login.init();
         }
     }
-
 
 }
