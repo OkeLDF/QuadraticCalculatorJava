@@ -8,17 +8,17 @@ import menu.TelaInicial;
 
 public class Alterar extends Login {
 
-    public void voltar(ActionEvent event) {
-        if (event.getSource() == this.bntVolta) { // bnt de volta
+    public void action(ActionEvent event) {
+        if (event.getSource() == this.btnAction) { // bnt de volta
             this.dispose();
             new TelaInicial().init(new Login());
 
         }
     }
 
-    public void init(){
+    public void init() {
         super.init();
-        this.bntClick.setText("EDIT");
+        this.bntInside.setText("EDIT");
     }
 
     public void prosseguir(ActionEvent event) {
@@ -26,7 +26,7 @@ public class Alterar extends Login {
         String senha = new String(this.txtpSenha.getPassword()); // converte o Password para s
         String user = new String(this.txtUsuario.getText()); // converte o Password para s
 
-        if (event.getSource() == this.bntClick) {
+        if (event.getSource() == this.bntInside) {
             // validade = algo
             if (!(senha.equals("")) || !(user.equals(""))) {
                 this.dispose();

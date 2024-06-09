@@ -24,7 +24,7 @@ public class Login extends JFrame {
     protected JLabel lblSenha, lblUsuario;
     protected JTextField txtUsuario;
     protected JPasswordField txtpSenha;
-    protected JButton bntClick, bntVolta;
+    protected JButton bntInside, btnAction;
     protected JPanel fundo = new JPanel();
 
     public Login() {
@@ -51,14 +51,15 @@ public class Login extends JFrame {
         lblSenha = new JLabel("SENHA");
         txtUsuario = new JTextField();
         txtpSenha = new JPasswordField();
-        bntClick = new JButton("OK");
-        bntVolta = new JButton("VOLTAR");
+        bntInside = new JButton("OK");
+        btnAction = new JButton("CADASTRO");
     }
 
     public void login() {
         this.components();
-        List<JComponent> components = Arrays.asList(lblUsuario, txtUsuario, lblSenha, txtpSenha, bntVolta, bntClick);
-        List<JButton> btns = Arrays.asList(bntVolta, bntClick);
+        List<JComponent> components = Arrays.asList(lblUsuario, txtUsuario, lblSenha, txtpSenha, btnAction,
+                bntInside);
+        List<JButton> btns = Arrays.asList(btnAction, bntInside);
         this.jpnLogin.setPreferredSize(new Dimension(400, 600));
         this.jpnLogin.setBackground(Color.black);
         this.jpnLogin.setOpaque(false);
@@ -87,15 +88,15 @@ public class Login extends JFrame {
 
         components.forEach(e -> jpnLogin.add(e));
 
-        this.bntVolta.addActionListener(this::voltar);
-        this.bntClick.addActionListener(this::prosseguir);
+        this.btnAction.addActionListener(this::action);
+        this.bntInside.addActionListener(this::prosseguir);
     }
 
     public void prosseguir(ActionEvent event) {
 
         String senha = new String(this.txtpSenha.getPassword()); // converte o Password para s
         Integer validade = 0;
-        if (event.getSource() == this.bntClick) {
+        if (event.getSource() == this.bntInside) {
             // validade = algo
             if (senha.equals("123")) { // 3 é a soma da validade da senha(1) e do usuario(2);
                 this.dispose();
@@ -113,9 +114,10 @@ public class Login extends JFrame {
         }
     }
 
-    public void voltar(ActionEvent event) {
-        if (event.getSource() == this.bntVolta) { // bnt de volta
+    public void action(ActionEvent event) {
+        if (event.getSource() == this.btnAction) { // bnt de volta
             this.dispose();
+            new Cadastro().init();
         }
     }
 }
