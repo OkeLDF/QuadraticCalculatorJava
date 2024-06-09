@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import logic.Equation;
 import menu.TelaInicial;
@@ -108,6 +109,22 @@ public class Calc extends Tela {
         this.jpTotal.setOpaque(false);
         this.definirBtns();
         this.configuarResultPane();
+    }
+
+    public JPanel getExpressionPane() {
+        return this.jpExpression;
+    }
+
+    public JPanel getPanelBtn() {
+        return this.jpBtn;
+    }
+
+    public JButton getBtnCalc() {
+        return this.btnCalcular;
+    }
+
+    public Values getValues() {
+        return this.values;
     }
 
     public boolean catchValue() {

@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import calc.Calc;
+import historic.Historico;
+import user.Alterar;
 import user.Login;
 
 /*
@@ -33,6 +35,8 @@ public class TelaInicial extends JFrame {
     protected JButton btnHistorico, btnCalcular, bntLogout, bntEdit;
     private Calc calcular = new Calc();
     private Login login = new Login();
+    private Historico historico = new Historico();
+    private Alterar alterar = new Alterar();
 
     public TelaInicial() {
 
@@ -110,6 +114,12 @@ public class TelaInicial extends JFrame {
             this.dispose();
             login = new Login();
             login.init();
+        } else if (this.btnHistorico.equals(event.getSource())) {
+            this.setVisible(false);
+            this.historico.init(this);
+        } else if (this.bntEdit.equals(event.getSource())) {
+            alterar.init();
+            this.dispose();
         }
     }
 

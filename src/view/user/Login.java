@@ -19,13 +19,13 @@ import javax.swing.JTextField;
 import menu.TelaInicial;
 
 public class Login extends JFrame {
-    private int tentativas;
-    JPanel jpnLogin;
-    JLabel lblSenha, lblUsuario;
-    JTextField txtUsuario;
-    JPasswordField txtpSenha;
-    JButton bntClick, bntVolta;
-    JPanel fundo = new JPanel();
+    protected int tentativas;
+    protected JPanel jpnLogin;
+    protected JLabel lblSenha, lblUsuario;
+    protected JTextField txtUsuario;
+    protected JPasswordField txtpSenha;
+    protected JButton bntClick, bntVolta;
+    protected JPanel fundo = new JPanel();
 
     public Login() {
     }
@@ -116,8 +116,6 @@ public class Login extends JFrame {
     public void voltar(ActionEvent event) {
         if (event.getSource() == this.bntVolta) { // bnt de volta
             this.dispose();
-            new TelaInicial();
-
         }
     }
 }
