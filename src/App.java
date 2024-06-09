@@ -1,7 +1,10 @@
 import menu.TelaInicial;
+import user.Login;
 
 public class App {
     public static void main(String[] args) {
-        new TelaInicial().setVisible(true);
+        // TelaInicial telaInicial = new TelaInicial();
+        // telaInicial.init();
+        new Login();
     }
 }

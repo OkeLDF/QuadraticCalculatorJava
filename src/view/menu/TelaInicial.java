@@ -33,10 +33,14 @@ public class TelaInicial extends JFrame {
     private Calc calcular  = new Calc();
 
     public TelaInicial() {
+        
+    }
+    
+    public void init (){
         configurarJanela();
         configurarPanel();
+        this.setVisible(true);
     }
-
     protected void configurarJanela() {
         panel = new JPanel();
         this.panel.setBackground(Color.black);
@@ -95,10 +99,10 @@ public class TelaInicial extends JFrame {
 
     private void escolha(ActionEvent event) {
         if (this.btnCalcular.equals(event.getSource())) {
-            this.dispose();
-            this.calcular.init();
-            return;
+            this.setVisible(false);
+            this.calcular.init(this);
         }
     }
+
 
 }

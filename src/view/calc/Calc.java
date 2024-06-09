@@ -1,4 +1,5 @@
 package calc;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -6,11 +7,10 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 import logic.Equation;
-
-
-
+import menu.TelaInicial;
 
 public class Calc extends Tela {
     private Equation equation = new Equation();
@@ -18,6 +18,8 @@ public class Calc extends Tela {
     private Panel jpExpression, jpTotal, jpResult, jpX, jpX2, jpDelta, jpRoot, jpBtn;
     private JButton btnCalcular;
     private Values values = new Values();
+    private TelaInicial telaInicial;
+    private Calc calcul;
 
     {
         this.jpExpression = new Panel();
@@ -30,16 +32,21 @@ public class Calc extends Tela {
         this.jpBtn = new Panel();
         this.btnCalcular = new JButton("CALCULAR: ");
     }
-    public void init(){
+
+    public void init(TelaInicial anterior) {
+        this.telaInicial = anterior;
         this.configuraFrame();
         this.values.configurarValues();
         this.configuarPanel();
     }
+
     public void definirBtns() {
+        super.configurarBtn();
         this.btnCalcular.setBackground(Color.green);
         this.btnCalcular.addActionListener(this::calcular);
         this.jpBtn.definiTamanho(800, 50);
-        this.jpBtn.setLayout(new FlowLayout(FlowLayout.LEFT, 325, 20));
+        this.jpBtn.setLayout(new FlowLayout(FlowLayout.LEFT, 175, 20));
+        this.jpBtn.add(btnVolta);
         this.jpBtn.add(btnCalcular);
         this.jpBtn.setOpaque(false);
     }
@@ -122,5 +129,12 @@ public class Calc extends Tela {
 
         this.setResult(this.equation.getFirstResult(), this.equation.getSecondResult(), this.equation.getDelta(),
                 this.equation.getRootsQuantity());
+    }
+
+    @Override
+    public void volta(ActionEvent e) {
+        this.dispose();
+        this.telaInicial.setVisible(true);
+
     }
 }
