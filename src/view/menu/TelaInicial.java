@@ -98,6 +98,7 @@ public class TelaInicial extends JFrame {
             btn.setForeground(Color.black);
             btn.setBackground(Color.green);
             btn.setFocusPainted(false);
+            btn.setPreferredSize(new Dimension(120, 30));
 
         });
 

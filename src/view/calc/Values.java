@@ -14,8 +14,8 @@ public class Values {
     private JTextField a, b, c;
     private List<JTextField> field = Arrays.asList(a = new JTextField(), b = new JTextField(), c = new JTextField());
     private JLabel x = new JLabel("x+"), x2 = new JLabel("x²+"), zero = new JLabel("=0");
-    private JLabel xLabel = new JLabel("X' = ");
-    private JLabel yLabel = new JLabel("X'' '= ");
+    private JLabel xLinha1 = new JLabel("X' = ");
+    private JLabel xLinha2 = new JLabel("X''= ");
     private JLabel aLabel = new JLabel("2"), bLabel = new JLabel("2"), cLabel = new JLabel("2");
 
     public JLabel getcLabel() {
@@ -42,10 +42,9 @@ public class Values {
         this.aLabel.setText("" + valor);
     }
 
-
     private JLabel deltaLabel = new JLabel("<html>&#916;</hmtl>" + "= ");
     private JLabel rootLabel = new JLabel("Numero de Raízes= ");
-    private List<JLabel> labels = Arrays.asList(xLabel, yLabel, deltaLabel, rootLabel, x, x2, zero, aLabel, bLabel,
+    private List<JLabel> labels = Arrays.asList(xLinha1, xLinha2, deltaLabel, rootLabel, x, x2, zero, aLabel, bLabel,
             cLabel);
 
     public void Value() {
@@ -106,19 +105,20 @@ public class Values {
     }
 
     public JLabel getx2Label() {
-        return yLabel;
+        return xLinha2;
     }
 
-    public JLabel getxLabel() {
-        return xLabel;
+    public JLabel getxLinha1() {
+        return xLinha1;
     }
 
     public List<JComponent> getExpression() {
         List<JComponent> expressao = Arrays.asList(a, x2, b, x, c, zero);
         return expressao;
     }
+
     public List<JComponent> getExpressionStatic() {
-        List<JComponent> expressao = Arrays.asList(aLabel, x2, bLabel, x, cLabel, zero);
+        List<JComponent> expressao = Arrays.asList(x2, x, zero);
         return expressao;
     }
 
@@ -127,11 +127,11 @@ public class Values {
     }
 
     public void setxLabelValue(String valor) {
-        this.xLabel.setText("X= " + valor);
+        this.xLinha1.setText("X= " + valor);
     }
 
     public void setx2LabelValue(String valor) {
-        this.yLabel.setText("X''= " + valor);
+        this.xLinha2.setText("X''= " + valor);
     }
 
     public void setDeltaLabelValue(String valor) {

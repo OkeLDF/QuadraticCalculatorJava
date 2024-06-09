@@ -61,7 +61,7 @@ public class Calc extends Tela {
             e.definiTamanho(600, 40);
             jpResult.add(e);
         });
-        jpX.add(values.getxLabel());
+        jpX.add(values.getxLinha1());
         jpX2.add(values.getx2Label());
         jpDelta.add(values.getDeltaLabel());
         jpRoot.add(values.getRootLabel());
