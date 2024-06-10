@@ -156,8 +156,8 @@ public class Calc extends Tela {
 
     @Override
     public void volta(ActionEvent e) {
-        this.dispose();
-        this.telaInicial.setVisible(true);
+        this.dispose(); 
+        new Menu().init();
 
     }
 }

@@ -28,9 +28,9 @@ public class Menu extends JFrame {
     protected JPanel jpConfirma, jpCalc, jpVolta;
     protected JPanel panel;
     protected JButton btnHistorico, btnCalcular, bntLogout, bntEdit;
-    private Calc calcular = new Calc();
-    private Historico historico = new Historico();
-    private Alterar alterar = new Alterar();
+    private Calc calcular;
+    private Historico historico;
+    private Alterar alterar;
 
     public Menu() {
 
@@ -40,6 +40,9 @@ public class Menu extends JFrame {
         configurarJanela();
         configurarPanel();
         this.setVisible(true);
+        calcular = new Calc();
+        historico = new Historico();
+        alterar = new Alterar();
     }
 
     protected void configurarJanela() {
@@ -73,10 +76,6 @@ public class Menu extends JFrame {
         this.jpCalc.add(this.btnHistorico);
         this.jpCalc.add(this.bntLogout);
 
-        this.btnHistorico.addActionListener(event -> escolha(event));
-        this.btnCalcular.addActionListener(event -> escolha(event));
-        this.bntLogout.addActionListener(event -> escolha(event));
-
     }
 
     private void configurarDados() {
@@ -100,19 +99,18 @@ public class Menu extends JFrame {
     }
 
     private void escolha(ActionEvent event) {
+        System.out.println("opa");
         if (this.btnCalcular.equals(event.getSource())) {
+            new Calc().init();
             this.dispose();
-            Calc calc = new Calc(); // alterei
-            calc.init();
         } else if (this.bntLogout.equals(event.getSource())) {
             this.dispose();
-            Initial algo = new Initial(); // alterei
-            algo.init(); 
+            new Initial().init();
         } else if (this.btnHistorico.equals(event.getSource())) {
-            Historico historico = new Historico();
-            historico.init();
+            this.dispose();
+            new Historico().init();
         } else if (this.bntEdit.equals(event.getSource())) {
-            alterar.init();
+            new Alterar().init();
             this.dispose();
         }
     }

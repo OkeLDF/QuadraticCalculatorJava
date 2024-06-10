@@ -28,8 +28,6 @@ public class Login extends JFrame {
     protected JButton bntInside, btnAction;
     protected JPanel fundo = new JPanel();
 
-    public Login() {
-    }
 
     public void init() {
         configurarJanela();
