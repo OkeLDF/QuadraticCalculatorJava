@@ -58,11 +58,11 @@ public class Calc extends Tela {
             e.setOpaque(false);
             e.setBackground(Color.black);
             e.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 0));
-            e.definiTamanho(600, 40);
+            e.definiTamanho(700, 40);
             jpResult.add(e);
         });
-        jpX.add(values.getxLinha1());
-        jpX2.add(values.getx2Label());
+        jpX.add(values.getXLinha1());
+        jpX2.add(values.getXLinha2());
         jpDelta.add(values.getDeltaLabel());
         jpRoot.add(values.getRootLabel());
     }
@@ -78,8 +78,8 @@ public class Calc extends Tela {
 
     public void setResult(Double x, Double x2, Double delta, Integer root) {
         if (delta < 0) {
-            this.values.setxLabelValue(x + " + " + x2 + "*i");
-            this.values.setx2LabelValue(x + " - " + x2 + "*i");
+            this.values.setxLabelValue(x + " + " + x2 + " * i");
+            this.values.setx2LabelValue(x + " - " + x2 + " * i");
             this.values.setDeltaLabelValue(delta + "");
             this.values.setRootLabel(root);
             return;

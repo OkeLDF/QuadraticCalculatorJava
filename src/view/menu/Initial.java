@@ -20,8 +20,8 @@ public class Initial extends JFrame {
     protected JPanel jpConfirma, jpCalc, jpVolta;
     protected JPanel panel;
     protected JButton btnHistorico, btnCadastro, bntLogin, bntEdit;
-    private Login login = new Login();
-    private Cadastro cadastro = new Cadastro();
+    private Login login;
+    private Cadastro cadastro;
 
     public static User currentUser = new User();
 
@@ -29,6 +29,8 @@ public class Initial extends JFrame {
         this.configurarJanela();
         this.configurarPanel();
         this.setVisible(true);
+        login = new Login();
+        cadastro = new Cadastro();
     }
 
     protected void configurarJanela() {
@@ -49,7 +51,7 @@ public class Initial extends JFrame {
         jpConfirma = new JPanel(); // será utilizado por suas subclasses
         jpVolta = new JPanel(); // será utilizado por suas subclasses
 
-        this.jpCalc.setLayout(new FlowLayout(FlowLayout.LEFT, 90, 40));
+        this.jpCalc.setLayout(new FlowLayout(FlowLayout.LEFT, 90, 90)); 
         this.jpCalc.setPreferredSize(new Dimension(490, 500));
         this.jpCalc.setBackground(Color.darkGray);
         this.jpCalc.setOpaque(false);

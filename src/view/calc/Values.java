@@ -13,9 +13,9 @@ import javax.swing.JTextField;
 public class Values {
     private JTextField a, b, c;
     private List<JTextField> field = Arrays.asList(a = new JTextField(), b = new JTextField(), c = new JTextField());
-    private JLabel x = new JLabel("x+"), x2 = new JLabel("x²+"), zero = new JLabel("=0");
+    private JLabel x = new JLabel("x + "), x2 = new JLabel("x² + "), zero = new JLabel("= 0");
     private JLabel xLinha1 = new JLabel("X' = ");
-    private JLabel xLinha2 = new JLabel("X''= ");
+    private JLabel xLinha2 = new JLabel("X'' = ");
     private JLabel aLabel = new JLabel("2"), bLabel = new JLabel("2"), cLabel = new JLabel("2");
 
     public JLabel getcLabel() {
@@ -42,8 +42,8 @@ public class Values {
         this.aLabel.setText("" + valor);
     }
 
-    private JLabel deltaLabel = new JLabel("<html>&#916;</hmtl>" + "= ");
-    private JLabel rootLabel = new JLabel("Numero de Raízes= ");
+    private JLabel deltaLabel = new JLabel("<html>&#916;</hmtl>" + " = ");
+    private JLabel rootLabel = new JLabel("Numero de Raízes = ");
     private List<JLabel> labels = Arrays.asList(xLinha1, xLinha2, deltaLabel, rootLabel, x, x2, zero, aLabel, bLabel,
             cLabel);
 
@@ -54,7 +54,7 @@ public class Values {
     public void valuesExpression() {
 
         this.field.forEach(e -> {
-            e.setFont(new Font("Arial Black", Font.ITALIC, 36));
+            e.setFont(new Font("Arial Black", Font.PLAIN, 26));
             e.setForeground(Color.white);
             e.setBackground(Color.black);
             e.setPreferredSize(new Dimension(100, 40));
@@ -63,7 +63,7 @@ public class Values {
 
     public void configurarValues() {
         this.labels.forEach(e -> {
-            e.setFont(new Font("Arial Black", Font.ITALIC, 36));
+            e.setFont(new Font("Arial Black", Font.PLAIN, 26));
             e.setForeground(Color.white);
         });
     }
@@ -104,11 +104,11 @@ public class Values {
         return deltaLabel;
     }
 
-    public JLabel getx2Label() {
+    public JLabel getXLinha2() {
         return xLinha2;
     }
 
-    public JLabel getxLinha1() {
+    public JLabel getXLinha1() {
         return xLinha1;
     }
 
@@ -123,19 +123,19 @@ public class Values {
     }
 
     public void setRootLabel(Integer value) {
-        this.rootLabel.setText("Numero de Raízes= " + value);
+        this.rootLabel.setText("Numero de Raízes = " + value);
     }
 
     public void setxLabelValue(String valor) {
-        this.xLinha1.setText("X= " + valor);
+        this.xLinha1.setText("X' = " + valor);
     }
 
     public void setx2LabelValue(String valor) {
-        this.xLinha2.setText("X''= " + valor);
+        this.xLinha2.setText("X'' = " + valor);
     }
 
     public void setDeltaLabelValue(String valor) {
-        this.deltaLabel.setText("<html>&#916;</hmtl>" + "= " + valor);
+        this.deltaLabel.setText("<html>&#916;</hmtl>" + " = " + valor);
     }
 
 }
