@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class Login extends JFrame {
     public Login() {
     }
 
-    public void init() throws IOException{
+    public void init() {
         configurarJanela();
         login();
         this.setVisible(true);
@@ -57,7 +56,7 @@ public class Login extends JFrame {
         btnAction = new JButton("VOLTAR");
     }
 
-    public void login() throws IOException{
+    public void login() {
         this.components();
         List<JComponent> components = Arrays.asList(lblUsuario, txtUsuario, lblSenha, txtpSenha, btnAction,
                 bntInside);
@@ -92,15 +91,11 @@ public class Login extends JFrame {
 
         this.btnAction.addActionListener(this::voltar);
         this.bntInside.addActionListener(e -> {
-            try {
-                prosseguir(e);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            prosseguir(e);
         });
     }
 
-    public void prosseguir(ActionEvent event) throws IOException{
+    public void prosseguir(ActionEvent event) {
         String nome = new String(this.txtUsuario.getText()); // converte o Password para s
         String senha = new String(this.txtpSenha.getPassword()); // converte o Password para s
         

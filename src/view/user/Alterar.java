@@ -1,7 +1,6 @@
 package user;
 
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
@@ -19,7 +18,7 @@ public class Alterar extends Login implements ErrorCodeNumbers{
         }
     }
 
-    public void init() throws IOException {
+    public void init() {
         super.init();
         this.bntInside.setText("EDIT");
     }
@@ -31,11 +30,7 @@ public class Alterar extends Login implements ErrorCodeNumbers{
 
         if (event.getSource() == this.bntInside) {
             if(!senha.equals("")){
-                try {
-                    errorCode = Initial.currentUser.updatePassword(senha);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                errorCode = Initial.currentUser.updatePassword(senha);
 
                 if(errorCode == COMMA_IN_STRING){
                     JOptionPane.showMessageDialog(rootPane, "Não use vírgula no nome ou senha!", "Tente Novamente",
@@ -55,11 +50,7 @@ public class Alterar extends Login implements ErrorCodeNumbers{
             }
 
             else if(!nome.equals("")){
-                try {
-                    errorCode = Initial.currentUser.updateName(nome);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                errorCode = Initial.currentUser.updateName(nome);
 
                 if(errorCode == COMMA_IN_STRING){
                     JOptionPane.showMessageDialog(rootPane, "Não use vírgula no nome ou senha!", "Tente Novamente",

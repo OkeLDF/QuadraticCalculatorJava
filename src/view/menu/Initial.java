@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
@@ -79,16 +78,12 @@ public class Initial extends JFrame {
         });
 
         bntList.forEach(e -> e.addActionListener(e1 -> {
-            try {
-                escolha(e1);
-            } catch (IOException exc) {
-                exc.printStackTrace();
-            }
+            escolha(e1);
         }));
 
     }
 
-    private void escolha(ActionEvent event) throws IOException {
+    private void escolha(ActionEvent event) {
         if (this.bntLogin.equals(event.getSource())) {
             this.login.init();
             this.dispose();

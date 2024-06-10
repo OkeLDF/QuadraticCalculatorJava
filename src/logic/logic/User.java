@@ -24,20 +24,32 @@ public class User implements ErrorCodeNumbers{
         usersFileName = Paths.get("files", "users.csv");
     }
 
-    public static boolean searchUser(String userName) throws IOException{
+    public static boolean searchUser(String userName) {
         File fp = new File(usersFileName.toString());
-        if(!fp.exists()) fp.createNewFile();
+        try {
+            if(!fp.exists()) fp.createNewFile();
 
-        for(String line : Files.readAllLines(usersFileName)){
-            String candidate = line.split(",")[0].toLowerCase();
-            if(candidate.equals(userName.toLowerCase())) return true;
+            for(String line : Files.readAllLines(usersFileName)){
+                String candidate = line.split(",")[0].toLowerCase();
+                if(candidate.equals(userName.toLowerCase())) return true;
+            }
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return false;
         }
         return false;
     }
 
-    public int login(String name, String password) throws IOException{
-        List<String> lines = Files.readAllLines(usersFileName);
-
+    public int login(String name, String password) {
+        List<String> lines = null;
+        try {
+            lines = Files.readAllLines(usersFileName);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return FILE_ERROR;
+        }
         this.name = name;
         this.password = password;
         boolean userExists = false;
@@ -68,42 +80,62 @@ public class User implements ErrorCodeNumbers{
         return SUCCESS; // sucesso
     }
 
-    public static int signUp(String name, String password) throws IOException{
+    public static int signUp(String name, String password) {
         if(User.searchUser(name)) return USER_ALREADY_EXISTS;
         if(name.contains(",") || password.contains(",")) return COMMA_IN_STRING;
         if(name.equals("") || password.equals("")) return EMPTY_STRING;
 
-        BufferedWriter writer = new BufferedWriter(
-            new FileWriter(User.usersFileName.toString(), true));
-        writer.write(name + "," + password + "\n");
-        writer.close();
+        try{
+            BufferedWriter writer = new BufferedWriter(
+                new FileWriter(User.usersFileName.toString(), true));
+            writer.write(name + "," + password + "\n");
+            writer.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return FILE_ERROR;
+        }
         return SUCCESS;
     }
 
-    public boolean saveOnHistory(Equation equation) throws IOException{
+    public boolean saveOnHistory(Equation equation) {
         if(equation==null) return false;
         File fp = new File(this.historyPath.toString());
-        if(!fp.exists()) fp.createNewFile();
-        
-        BufferedWriter writer = new BufferedWriter(
-            new FileWriter(this.historyPath.toString(), true));
-        
-        writer.write(
-            equation.getA() + "," +
-            equation.getB() + "," +
-            equation.getC() + "," +
-            equation.getDelta() + "," +
-            equation.getFirstResult() + "," +
-            equation.getSecondResult() + "," +
-            equation.getRootsQuantity() + "\n"
-        );
-        writer.close();
 
+        try{
+            if(!fp.exists()) fp.createNewFile();
+            
+            BufferedWriter writer = new BufferedWriter(
+                new FileWriter(this.historyPath.toString(), true));
+            
+            writer.write(
+                equation.getA() + "," +
+                equation.getB() + "," +
+                equation.getC() + "," +
+                equation.getDelta() + "," +
+                equation.getFirstResult() + "," +
+                equation.getSecondResult() + "," +
+                equation.getRootsQuantity() + "\n"
+            );
+            writer.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
-    public List<List<String>> getHistoryEntries() throws IOException{
-        List<String> rawHistory = Files.readAllLines(this.historyPath);
+    public List<List<String>> getHistoryEntries() {
+        List<String> rawHistory;
+        
+        try {
+            rawHistory = Files.readAllLines(this.historyPath);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return null;
+        }
         List<List<String>> splitHistory = new ArrayList<List<String>>();
 
         for(String line : rawHistory){
@@ -114,14 +146,20 @@ public class User implements ErrorCodeNumbers{
         return splitHistory;
     }
 
-    public void clearHistory() throws IOException{
-        BufferedWriter writer = new BufferedWriter(
-            new FileWriter(this.historyPath.toString(), false));
-        writer.write("");
-        writer.close();
+    public void clearHistory() {
+        try {
+            BufferedWriter writer = new BufferedWriter(
+                new FileWriter(this.historyPath.toString(), false));
+            writer.write("");
+            writer.close();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return;
+        }
     }
 
-    public int updateName(String newName) throws IOException{
+    public int updateName(String newName) {
         if(newName.contains(",")) return COMMA_IN_STRING;
         if(searchUser(newName)){
             if(!newName.toLowerCase().equals(this.name.toLowerCase())){
@@ -130,19 +168,24 @@ public class User implements ErrorCodeNumbers{
         }
         
         List<String> newLines = new ArrayList<String>();
+        try {
+            for(String line : Files.readAllLines(usersFileName)){
+                String userName = line.split(",")[0];
 
-        for(String line : Files.readAllLines(usersFileName)){
-            String userName = line.split(",")[0];
-
-            if(userName.equals(this.getName())){
-                newLines.add(line.replace(this.getName(), newName));
-                continue;
+                if(userName.equals(this.getName())){
+                    newLines.add(line.replace(this.getName(), newName));
+                    continue;
+                }
+                newLines.add(line);
             }
-            newLines.add(line);
-        }
 
-        this.setName(newName);
-        Files.write(usersFileName, newLines);
+            this.setName(newName);
+            Files.write(usersFileName, newLines);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return FILE_ERROR;
+        }
 
         File fp = new File(this.historyPath.toString());
         this.historyFileName = this.name + "_history.csv";
@@ -152,25 +195,32 @@ public class User implements ErrorCodeNumbers{
         return SUCCESS;
     }
 
-    public int updatePassword(String newPassword) throws IOException{
+    public int updatePassword(String newPassword) {
         if(newPassword.contains(",")) return COMMA_IN_STRING;
         
         List<String> newLines = new ArrayList<String>();
 
-        for(String line : Files.readAllLines(usersFileName)){
-            String userName = line.split(",")[0];
-            String userPassword = line.split(",")[1];
+        try{
+            for(String line : Files.readAllLines(usersFileName)){
+                String userName = line.split(",")[0];
+                String userPassword = line.split(",")[1];
 
-            if(userPassword.equals(this.getPassword())
-               && userName.equals(this.getName())){
-                newLines.add(line.replace(this.getPassword(), newPassword));
-                continue;
+                if(userPassword.equals(this.getPassword())
+                && userName.equals(this.getName())){
+                    newLines.add(line.replace(this.getPassword(), newPassword));
+                    continue;
+                }
+                newLines.add(line);
             }
-            newLines.add(line);
+
+            this.setPassword(newPassword);
+            Files.write(usersFileName, newLines);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+            return FILE_ERROR;
         }
 
-        this.setPassword(newPassword);
-        Files.write(usersFileName, newLines);
         return SUCCESS;
     }
 

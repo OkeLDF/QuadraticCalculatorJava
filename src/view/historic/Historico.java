@@ -32,11 +32,11 @@ public class Historico {
             e.setBackground(Color.green);
         });
         this.btns.forEach(calc.getPanelBtn()::add);
-        this.btns.forEach(e -> e.addActionListener(this::acompanhar));
+        this.btns.forEach(e -> e.addActionListener(this::navegar));
 
     }
 
-    public void acompanhar(ActionEvent e) {
+    public void navegar(ActionEvent e) {
         if (this.btnProx.equals(e.getSource())) {
 
         } else {

@@ -1,7 +1,6 @@
 package user;
 
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
@@ -11,7 +10,7 @@ import menu.Initial;
 
 public class Cadastro extends Login implements ErrorCodeNumbers {
 
-    public void init() throws IOException {
+    public void init() {
         super.init();
         this.configuar();
     }
@@ -28,13 +27,7 @@ public class Cadastro extends Login implements ErrorCodeNumbers {
     public void prosseguir(ActionEvent event) {
         String nome = new String(this.txtUsuario.getText()); // converte o Password para s
         String senha = new String(this.txtpSenha.getPassword()); // converte o Password para s
-        int errorCode = -1;
-
-        try {
-            errorCode = User.signUp(nome, senha);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int errorCode = User.signUp(nome, senha);
 
         if(errorCode == EMPTY_STRING){
             JOptionPane.showMessageDialog(rootPane, "Não deixe campos vazios!", "Tente Novamente",
@@ -58,5 +51,4 @@ public class Cadastro extends Login implements ErrorCodeNumbers {
             }
         }
     }
-
 }

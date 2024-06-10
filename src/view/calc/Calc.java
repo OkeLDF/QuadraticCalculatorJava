@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import logic.Equation;
+import menu.Initial;
 import menu.Menu;
 
 public class Calc extends Tela {
@@ -19,6 +20,7 @@ public class Calc extends Tela {
     private JButton btnCalcular;
     private Values values = new Values();
     private Menu telaInicial;
+    private boolean verificador = true;
 
     {
         this.jpExpression = new Panel();
@@ -138,12 +140,18 @@ public class Calc extends Tela {
     }
 
     public void calcular(ActionEvent e) {
-        if (!this.catchValue())
-            return;
-        this.equation.setCoeficients(this.a, this.b, this.c);
+        
+        // if(this.btnCalcular.equals(e.getSource())){
+        if(verificador){
+            if (!this.catchValue())
+                return;
+            this.equation.setCoeficients(this.a, this.b, this.c);
+            Initial.currentUser.saveOnHistory(equation);
 
-        this.setResult(this.equation.getFirstResult(), this.equation.getSecondResult(), this.equation.getDelta(),
-                this.equation.getRootsQuantity());
+            this.setResult(this.equation.getFirstResult(), this.equation.getSecondResult(), this.equation.getDelta(),
+                    this.equation.getRootsQuantity());
+        }
+        verificador = !verificador;
     }
 
     @Override
