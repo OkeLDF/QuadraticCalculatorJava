@@ -1,8 +1,1 @@
-if( delta >= 0){
-    x1 = 123.4    (getFirstResult)
-    x2 = 8765.4   (getSecondResult) 
-}
-else{
-    x1 = 123.4 + 8765.4      (getFirstResult + getSecondResult)
-    x2 = 123.4 - 8765.4      (getFirstResult - getSecondResult)
-}
+FUNDE NOW
