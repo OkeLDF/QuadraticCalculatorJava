@@ -29,7 +29,6 @@ public class Menu extends JFrame {
     protected JPanel panel;
     protected JButton btnHistorico, btnCalcular, bntLogout, bntEdit;
     private Calc calcular = new Calc();
-    // private Initial initial = new Initial();
     private Historico historico = new Historico();
     private Alterar alterar = new Alterar();
 
@@ -102,15 +101,16 @@ public class Menu extends JFrame {
 
     private void escolha(ActionEvent event) {
         if (this.btnCalcular.equals(event.getSource())) {
-            this.setVisible(false);
-            this.calcular.init(this);
+            this.dispose();
+            Calc calc = new Calc(); // alterei
+            calc.init();
         } else if (this.bntLogout.equals(event.getSource())) {
             this.dispose();
-            Initial algo = new Initial(); //alterei 
-            algo.init();
+            Initial algo = new Initial(); // alterei
+            algo.init(); 
         } else if (this.btnHistorico.equals(event.getSource())) {
-            this.setVisible(false);
-            this.historico.init(this);
+            Historico historico = new Historico();
+            historico.init();
         } else if (this.bntEdit.equals(event.getSource())) {
             alterar.init();
             this.dispose();

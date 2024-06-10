@@ -10,7 +10,6 @@ import javax.swing.JButton;
 
 import calc.Calc;
 import menu.Initial;
-import menu.Menu;
 
 public class Historico {
     private Calc calc = new Calc();
@@ -19,8 +18,8 @@ public class Historico {
     private List<JButton> btns = Arrays.asList(btnAnt, btnProx);
     private int iterator = 0;
 
-    public void init(Menu telaInicial) {
-        calc.init(telaInicial);
+    public void init() {
+        calc.init();
         configurar();
         this.setarValores();
     }

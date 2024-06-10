@@ -34,11 +34,11 @@ public class Calc extends Tela {
         this.btnCalcular = new JButton("CALCULAR: ");
     }
 
-    public void init(Menu anterior) {
-        this.telaInicial = anterior;
+    public void init() {
         this.configuraFrame();
         this.values.configurarValues();
         this.configuarPanel();
+        this.btnCalcular.addActionListener(e -> calcular(e));
     }
 
     public void definirBtns() {
