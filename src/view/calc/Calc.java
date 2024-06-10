@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import logic.Equation;
@@ -20,7 +19,6 @@ public class Calc extends Tela {
     private JButton btnCalcular;
     private Values values = new Values();
     private Menu telaInicial;
-    private Calc calcul;
 
     {
         this.jpExpression = new Panel();

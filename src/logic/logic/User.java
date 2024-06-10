@@ -68,6 +68,18 @@ public class User implements ErrorCodeNumbers{
         return SUCCESS; // sucesso
     }
 
+    public static int signUp(String name, String password) throws IOException{
+        if(User.searchUser(name)) return USER_ALREADY_EXISTS;
+        if(name.contains(",") || password.contains(",")) return COMMA_IN_STRING;
+        if(name.equals("") || password.equals("")) return EMPTY_STRING;
+
+        BufferedWriter writer = new BufferedWriter(
+            new FileWriter(User.usersFileName.toString(), true));
+        writer.write(name + "," + password + "\n");
+        writer.close();
+        return SUCCESS;
+    }
+
     public boolean saveOnHistory(Equation equation) throws IOException{
         if(equation==null) return false;
         File fp = new File(this.historyPath.toString());
@@ -136,8 +148,6 @@ public class User implements ErrorCodeNumbers{
         this.historyFileName = this.name + "_history.csv";
         this.historyPath = Paths.get("files", historyFileName);
         fp.renameTo(new File(this.historyPath.toString()));
-
-        MenuView.input(this.historyFileName + " - " + this.historyPath.toString());
 
         return SUCCESS;
     }

@@ -4,22 +4,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import calc.Calc;
-import historic.Historico;
-import user.Alterar;
 import user.Cadastro;
 import user.Login;
+
+import logic.User;
 
 public class Initial extends JFrame {
     protected JPanel jpConfirma, jpCalc, jpVolta;
@@ -27,6 +23,8 @@ public class Initial extends JFrame {
     protected JButton btnHistorico, btnCadastro, bntLogin, bntEdit;
     private Login login = new Login();
     private Cadastro cadastro = new Cadastro();
+
+    public static User currentUser = new User();
 
     public void init() {
         this.configurarJanela();
@@ -80,11 +78,17 @@ public class Initial extends JFrame {
 
         });
 
-        bntList.forEach(e -> e.addActionListener(this::escolha));
+        bntList.forEach(e -> e.addActionListener(e1 -> {
+            try {
+                escolha(e1);
+            } catch (IOException exc) {
+                exc.printStackTrace();
+            }
+        }));
 
     }
 
-    private void escolha(ActionEvent event) {
+    private void escolha(ActionEvent event) throws IOException {
         if (this.bntLogin.equals(event.getSource())) {
             this.login.init();
             this.dispose();

@@ -4,21 +4,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import calc.Calc;
 import historic.Historico;
 import user.Alterar;
-import user.Login;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -116,7 +112,11 @@ public class Menu extends JFrame {
             this.setVisible(false);
             this.historico.init(this);
         } else if (this.bntEdit.equals(event.getSource())) {
-            alterar.init();
+            try {
+                alterar.init();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             this.dispose();
         }
     }

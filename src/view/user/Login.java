@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class Login extends JFrame {
     public Login() {
     }
 
-    public void init() {
+    public void init() throws IOException{
         configurarJanela();
         login();
         this.setVisible(true);
@@ -56,7 +57,7 @@ public class Login extends JFrame {
         btnAction = new JButton("VOLTAR");
     }
 
-    public void login() {
+    public void login() throws IOException{
         this.components();
         List<JComponent> components = Arrays.asList(lblUsuario, txtUsuario, lblSenha, txtpSenha, btnAction,
                 bntInside);
@@ -90,16 +91,24 @@ public class Login extends JFrame {
         components.forEach(e -> jpnLogin.add(e));
 
         this.btnAction.addActionListener(this::voltar);
-        this.bntInside.addActionListener(this::prosseguir);
+        this.bntInside.addActionListener(e -> {
+            try {
+                prosseguir(e);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
     }
 
-    public void prosseguir(ActionEvent event) {
-
+    public void prosseguir(ActionEvent event) throws IOException{
+        String nome = new String(this.txtUsuario.getText()); // converte o Password para s
         String senha = new String(this.txtpSenha.getPassword()); // converte o Password para s
-        Integer validade = 0;
+        
+        Initial.currentUser.login(nome, senha);
+
         if (event.getSource() == this.bntInside) {
             // validade = algo
-            if (senha.equals("123")) { // 3 é a soma da validade da senha(1) e do usuario(2);
+            if (Initial.currentUser.isLogged()) { // 3 é a soma da validade da senha(1) e do usuario(2);
                 this.dispose();
                 Menu telaInicial = new Menu();
                 telaInicial.init();

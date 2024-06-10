@@ -1,12 +1,15 @@
 package user;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import logic.ErrorCodeNumbers;
+import menu.Initial;
 import menu.Menu;
 
-public class Alterar extends Login {
+public class Alterar extends Login implements ErrorCodeNumbers{
 
     public void voltar(ActionEvent event) {
         if (event.getSource() == this.btnAction) { // bnt de volta
@@ -16,22 +19,65 @@ public class Alterar extends Login {
         }
     }
 
-    public void init() {
+    public void init() throws IOException {
         super.init();
         this.bntInside.setText("EDIT");
     }
 
     public void prosseguir(ActionEvent event) {
-
         String senha = new String(this.txtpSenha.getPassword()); // converte o Password para s
-        String user = new String(this.txtUsuario.getText()); // converte o Password para s
+        String nome = new String(this.txtUsuario.getText()); // converte o Nome para s
+        int errorCode = -1;
 
         if (event.getSource() == this.bntInside) {
-            // validade = algo
-            if (!(senha.equals("")) || !(user.equals(""))) {
-                this.dispose();
-                new Menu().init();
-            } else {
+            if(!senha.equals("")){
+                try {
+                    errorCode = Initial.currentUser.updatePassword(senha);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if(errorCode == COMMA_IN_STRING){
+                    JOptionPane.showMessageDialog(rootPane, "Não use vírgula no nome ou senha!", "Tente Novamente",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+        
+                else if(errorCode == USER_ALREADY_EXISTS){
+                    JOptionPane.showMessageDialog(rootPane, "Esse nome de usuário já está sendo utilizado!", "Tente Novamente",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+        
+                else if(errorCode == SUCCESS){
+                    this.dispose();
+                    new Menu().init();
+                }
+
+            }
+
+            else if(!nome.equals("")){
+                try {
+                    errorCode = Initial.currentUser.updateName(nome);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if(errorCode == COMMA_IN_STRING){
+                    JOptionPane.showMessageDialog(rootPane, "Não use vírgula no nome ou senha!", "Tente Novamente",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+        
+                else if(errorCode == USER_ALREADY_EXISTS){
+                    JOptionPane.showMessageDialog(rootPane, "Esse nome de usuário já está sendo utilizado!", "Tente Novamente",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+        
+                else if(errorCode == SUCCESS){
+                    this.dispose();
+                    new Menu().init();
+                }
+            }
+
+            else {
                 this.tentativas++; // 3 tentativas até Aparece a mensagem //
                 if (this.tentativas == 3) {
                     JOptionPane.showMessageDialog(rootPane, "Usuario ou senha vazios", "Tente Novamente",
@@ -39,7 +85,6 @@ public class Alterar extends Login {
                     this.tentativas = 0;
                 }
             }
-
         }
     }
 }
