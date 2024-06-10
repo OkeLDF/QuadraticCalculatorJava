@@ -24,12 +24,13 @@ public class User implements ErrorCodeNumbers{
 
     public static boolean searchUser(String userName) throws IOException{
         for(String line : Files.readAllLines(usersFileName)){
-            if(line.split(",")[0].equals(userName)) return true;
+            String candidate = line.split(",")[0].toLowerCase();
+            if(candidate.equals(userName.toLowerCase())) return true;
         }
         return false;
     }
 
-    public int login(String name, String password, String fileToSearch) throws IOException{
+    public int login(String name, String password) throws IOException{
         List<String> lines = Files.readAllLines(usersFileName);
 
         this.name = name;
@@ -91,7 +92,8 @@ public class User implements ErrorCodeNumbers{
         for(String line : rawHistory){
             splitHistory.add(Arrays.asList(line.split(",")));
         }
-
+        
+        if(splitHistory.size()==0) return null;
         return splitHistory;
     }
 
@@ -102,9 +104,14 @@ public class User implements ErrorCodeNumbers{
         writer.close();
     }
 
-    public boolean updateName(String newName) throws IOException{
-        if(newName.contains(",")) return false;
-
+    public int updateName(String newName) throws IOException{
+        if(newName.contains(",")) return COMMA_IN_STRING;
+        if(searchUser(newName)){
+            if(!newName.toLowerCase().equals(this.name.toLowerCase())){
+                return USER_ALREADY_EXISTS;
+            }
+        }
+        
         List<String> newLines = new ArrayList<String>();
 
         for(String line : Files.readAllLines(usersFileName)){
@@ -119,11 +126,19 @@ public class User implements ErrorCodeNumbers{
 
         this.setName(newName);
         Files.write(usersFileName, newLines);
-        return true;
+
+        File fp = new File(this.historyPath.toString());
+        this.historyFileName = this.name + "_history.csv";
+        this.historyPath = Paths.get("files", historyFileName);
+        fp.renameTo(new File(this.historyPath.toString()));
+
+        MenuView.input(this.historyFileName + " - " + this.historyPath.toString());
+
+        return SUCCESS;
     }
 
-    public boolean updatePassword(String newPassword) throws IOException{
-        if(newPassword.contains(",")) return false;
+    public int updatePassword(String newPassword) throws IOException{
+        if(newPassword.contains(",")) return COMMA_IN_STRING;
         
         List<String> newLines = new ArrayList<String>();
 
@@ -141,7 +156,7 @@ public class User implements ErrorCodeNumbers{
 
         this.setPassword(newPassword);
         Files.write(usersFileName, newLines);
-        return true;
+        return SUCCESS;
     }
 
     public String toString(){

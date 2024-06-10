@@ -47,12 +47,14 @@ public abstract class AppMenu implements ErrorCodeNumbers {
 
     public static void callHistory() throws IOException{
         List<List<String>> historyEntries = currentUser.getHistoryEntries();
-        int historySize = historyEntries.size();
-        if(historySize==0){
+        
+        if(historyEntries==null){
             MenuView.clearScreen();
             System.out.println("Histórico vazio!\n");
             return;
         }
+
+        int historySize = historyEntries.size();
         Equation eq = new Equation();
         
         for(int i=0;;){
@@ -105,9 +107,15 @@ public abstract class AppMenu implements ErrorCodeNumbers {
         switch (r) {
             case 1:
                 String newName = MenuView.input("Insira o novo nome: ");
-                if(!currentUser.updateName(newName)){
+                int errorCodeNum = currentUser.updateName(newName);
+                if(errorCodeNum==COMMA_IN_STRING){
                     MenuView.clearScreen();
                     System.out.println("Não use vírgulas!\n");
+                    break;
+                }
+                if(errorCodeNum==USER_ALREADY_EXISTS){
+                    MenuView.clearScreen();
+                    System.out.println("O usuário já existe!\n");
                     break;
                 }
                 MenuView.clearScreen();
@@ -115,7 +123,7 @@ public abstract class AppMenu implements ErrorCodeNumbers {
                 
             case 2:
                 String newPassword = MenuView.input("Insira a nova senha: ");
-                if(!currentUser.updatePassword(newPassword)){
+                if(currentUser.updatePassword(newPassword)==COMMA_IN_STRING){
                     MenuView.clearScreen();
                     System.out.println("Não use vírgulas!\n");
                     break;
@@ -183,7 +191,7 @@ public abstract class AppMenu implements ErrorCodeNumbers {
 
         MenuView.clearScreen();
 
-        int returnCode = currentUser.login(name, password, "users.csv");
+        int returnCode = currentUser.login(name, password);
         
         if(returnCode==USER_NOT_FOUND){
             System.out.println("Usuário não encontrado!\n");
