@@ -18,8 +18,8 @@ public class Historico {
     private JButton btnAnt = new JButton("<");
     private List<JButton> btns = Arrays.asList(btnAnt, btnProx);
 
-    public void init(Menu telaInicial) {
-        calc.init(telaInicial);
+    public void init( ) {
+        calc.init();
         configurar();
         this.setarValores();
     }
@@ -53,6 +53,11 @@ public class Historico {
         this.calc.getValues().getXQuadrado().setText(valorA + "x²");
         this.calc.getValues().getX().setText("+" + valorB + "x");
         this.calc.getValues().getZero().setText("+" + valorc + "=0");
+
+        this.calc.getValues().getDeltaLabel().setText("");
+        this.calc.getValues().getxLinha1().setText("");
+        this.calc.getValues().getx2Label().setText("");
+        this.calc.getValues().getRootLabel().setText("");
 
     }
 

@@ -34,17 +34,16 @@ public class Calc extends Tela {
         this.btnCalcular = new JButton("CALCULAR: ");
     }
 
-    public void init(Menu anterior) {
-        this.telaInicial = anterior;
+    public void init() {
         this.configuraFrame();
         this.values.configurarValues();
         this.configuarPanel();
+        this.btnCalcular.addActionListener(e -> calcular(e));
     }
 
     public void definirBtns() {
         super.configurarBtn();
         this.btnCalcular.setBackground(Color.green);
-        this.btnCalcular.addActionListener(this::calcular);
         this.jpBtn.definiTamanho(800, 50);
         this.jpBtn.setLayout(new FlowLayout(FlowLayout.LEFT, 175, 20));
         this.jpBtn.add(btnVolta);
@@ -55,10 +54,10 @@ public class Calc extends Tela {
     public void configuarValuesPanel() {
         List<Panel> configurarResult = Arrays.asList(jpX, jpX2, jpDelta, jpRoot);
         configurarResult.forEach((e) -> {
-            e.setOpaque(false);
+            e.setOpaque(true);
             e.setBackground(Color.black);
             e.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 0));
-            e.definiTamanho(600, 40);
+            e.definiTamanho(700, 40);
             jpResult.add(e);
         });
         jpX.add(values.getxLinha1());
@@ -71,7 +70,7 @@ public class Calc extends Tela {
         this.configuarValuesPanel();
         this.jpResult.definiTamanho(800, 220);
         this.jpResult.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 10));
-        this.jpResult.setOpaque(false);
+        this.jpResult.setOpaque(true);
         this.jpTotal.add(jpResult);
         this.jpTotal.add(jpBtn);
     }
@@ -142,6 +141,8 @@ public class Calc extends Tela {
     public void calcular(ActionEvent e) {
         if (!this.catchValue())
             return;
+
+        System.out.println("0");
         this.equation.setCoeficients(this.a, this.b, this.c);
 
         this.setResult(this.equation.getFirstResult(), this.equation.getSecondResult(), this.equation.getDelta(),
@@ -151,7 +152,8 @@ public class Calc extends Tela {
     @Override
     public void volta(ActionEvent e) {
         this.dispose();
-        this.telaInicial.setVisible(true);
+        Menu menu = new Menu();
+        menu.init();
 
     }
 }

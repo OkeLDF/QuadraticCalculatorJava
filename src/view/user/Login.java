@@ -32,8 +32,10 @@ public class Login extends JFrame {
     }
 
     public void init() {
+
         configurarJanela();
         login();
+        this.bntInside.setText("LOGAR");
         this.setVisible(true);
     }
 
@@ -101,8 +103,9 @@ public class Login extends JFrame {
             // validade = algo
             if (senha.equals("123")) { // 3 é a soma da validade da senha(1) e do usuario(2);
                 this.dispose();
-                Menu telaInicial = new Menu();
-                telaInicial.init();
+                new Menu().init();
+                
+
             } else {
                 this.tentativas++; // 3 tentativas até Aparece a mensagem //
                 if (this.tentativas == 3) {

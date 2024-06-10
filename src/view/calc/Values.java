@@ -54,7 +54,7 @@ public class Values {
     public void valuesExpression() {
 
         this.field.forEach(e -> {
-            e.setFont(new Font("Arial Black", Font.ITALIC, 36));
+            e.setFont(new Font("Arial Black", Font.PLAIN, 26));
             e.setForeground(Color.white);
             e.setBackground(Color.black);
             e.setPreferredSize(new Dimension(100, 40));
@@ -63,7 +63,7 @@ public class Values {
 
     public void configurarValues() {
         this.labels.forEach(e -> {
-            e.setFont(new Font("Arial Black", Font.ITALIC, 36));
+            e.setFont(new Font("Arial Black", Font.ITALIC, 26));
             e.setForeground(Color.white);
         });
     }
