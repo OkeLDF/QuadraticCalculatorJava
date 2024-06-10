@@ -4,7 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
-import menu.TelaInicial;
+import menu.Initial;
+import menu.Menu;
 
 public class Cadastro extends Login {
 
@@ -14,21 +15,21 @@ public class Cadastro extends Login {
     }
 
     public void configuar() {
-        this.btnAction.setText("LOGIN");
+        this.bntInside.setText("CADASTRAR");
     }
 
-    public void action(ActionEvent event) {
+    public void voltar(ActionEvent event) {
         this.dispose();
-        new Login().init();
+        new Initial().init();
     }
-        public void prosseguir(ActionEvent event) {
+
+    public void prosseguir(ActionEvent event) {
         if (event.getSource() == this.bntInside) {
-                this.dispose();
-                TelaInicial telaInicial = new TelaInicial();
-                telaInicial.init(this);
+            this.dispose();
+            Menu telaInicial = new Menu();
+            telaInicial.init(this);
 
         }
     }
-
 
 }

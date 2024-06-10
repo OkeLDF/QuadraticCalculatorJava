@@ -4,14 +4,14 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
-import menu.TelaInicial;
+import menu.Menu;
 
 public class Alterar extends Login {
 
-    public void action(ActionEvent event) {
+    public void voltar(ActionEvent event) {
         if (event.getSource() == this.btnAction) { // bnt de volta
             this.dispose();
-            new TelaInicial().init(new Login());
+            new Menu().init(new Login());
 
         }
     }
@@ -30,7 +30,7 @@ public class Alterar extends Login {
             // validade = algo
             if (!(senha.equals("")) || !(user.equals(""))) {
                 this.dispose();
-                new TelaInicial().init(this);
+                new Menu().init(this);
             } else {
                 this.tentativas++; // 3 tentativas até Aparece a mensagem //
                 if (this.tentativas == 3) {

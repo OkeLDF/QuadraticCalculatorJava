@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import logic.Equation;
-import menu.TelaInicial;
+import menu.Menu;
 
 public class Calc extends Tela {
     private Equation equation = new Equation();
@@ -19,7 +19,7 @@ public class Calc extends Tela {
     private Panel jpExpression, jpTotal, jpResult, jpX, jpX2, jpDelta, jpRoot, jpBtn;
     private JButton btnCalcular;
     private Values values = new Values();
-    private TelaInicial telaInicial;
+    private Menu telaInicial;
     private Calc calcul;
 
     {
@@ -34,7 +34,7 @@ public class Calc extends Tela {
         this.btnCalcular = new JButton("CALCULAR: ");
     }
 
-    public void init(TelaInicial anterior) {
+    public void init(Menu anterior) {
         this.telaInicial = anterior;
         this.configuraFrame();
         this.values.configurarValues();

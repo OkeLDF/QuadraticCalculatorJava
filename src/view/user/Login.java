@@ -16,7 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import menu.TelaInicial;
+import menu.Initial;
+import menu.Menu;
 
 public class Login extends JFrame {
     protected int tentativas;
@@ -52,7 +53,7 @@ public class Login extends JFrame {
         txtUsuario = new JTextField();
         txtpSenha = new JPasswordField();
         bntInside = new JButton("OK");
-        btnAction = new JButton("CADASTRO");
+        btnAction = new JButton("VOLTAR");
     }
 
     public void login() {
@@ -82,13 +83,13 @@ public class Login extends JFrame {
         this.txtpSenha.setForeground(Color.green);
 
         btns.forEach((e) -> {
-            e.setPreferredSize(new Dimension(120, 20));
+            e.setPreferredSize(new Dimension(120, 30));
             e.setBackground(Color.green);
         });
 
         components.forEach(e -> jpnLogin.add(e));
 
-        this.btnAction.addActionListener(this::action);
+        this.btnAction.addActionListener(this::voltar);
         this.bntInside.addActionListener(this::prosseguir);
     }
 
@@ -100,7 +101,7 @@ public class Login extends JFrame {
             // validade = algo
             if (senha.equals("123")) { // 3 é a soma da validade da senha(1) e do usuario(2);
                 this.dispose();
-                TelaInicial telaInicial = new TelaInicial();
+                Menu telaInicial = new Menu();
                 telaInicial.init(this);
             } else {
                 this.tentativas++; // 3 tentativas até Aparece a mensagem //
@@ -114,10 +115,10 @@ public class Login extends JFrame {
         }
     }
 
-    public void action(ActionEvent event) {
+    public void voltar(ActionEvent event) {
         if (event.getSource() == this.btnAction) { // bnt de volta
             this.dispose();
-            new Cadastro().init();
+            new Initial().init();
         }
     }
 }

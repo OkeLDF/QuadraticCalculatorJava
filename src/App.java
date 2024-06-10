@@ -1,10 +1,12 @@
-import menu.TelaInicial;
+import menu.Initial;
+import menu.Menu;
 import user.Login;
 
 public class App {
     public static void main(String[] args) {
         // TelaInicial telaInicial = new TelaInicial();
-        // telaInicial.init();
-        new Login().init();
+        new Initial().init();
+        // new Login().init();
+
     }
 }
