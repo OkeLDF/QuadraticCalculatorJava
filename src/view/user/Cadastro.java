@@ -27,7 +27,7 @@ public class Cadastro extends Login {
         if (event.getSource() == this.bntInside) {
             this.dispose();
             Menu telaInicial = new Menu();
-            telaInicial.init(this);
+            telaInicial.init(   );
 
         }
     }

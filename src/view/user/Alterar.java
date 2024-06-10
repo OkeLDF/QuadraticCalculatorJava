@@ -11,7 +11,7 @@ public class Alterar extends Login {
     public void voltar(ActionEvent event) {
         if (event.getSource() == this.btnAction) { // bnt de volta
             this.dispose();
-            new Menu().init(new Login());
+            new Menu().init();
 
         }
     }
@@ -30,7 +30,7 @@ public class Alterar extends Login {
             // validade = algo
             if (!(senha.equals("")) || !(user.equals(""))) {
                 this.dispose();
-                new Menu().init(this);
+                new Menu().init();
             } else {
                 this.tentativas++; // 3 tentativas até Aparece a mensagem //
                 if (this.tentativas == 3) {

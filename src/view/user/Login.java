@@ -52,7 +52,7 @@ public class Login extends JFrame {
         lblSenha = new JLabel("SENHA");
         txtUsuario = new JTextField();
         txtpSenha = new JPasswordField();
-        bntInside = new JButton("OK");
+        bntInside = new JButton("LOGAR");
         btnAction = new JButton("VOLTAR");
     }
 
@@ -102,7 +102,7 @@ public class Login extends JFrame {
             if (senha.equals("123")) { // 3 é a soma da validade da senha(1) e do usuario(2);
                 this.dispose();
                 Menu telaInicial = new Menu();
-                telaInicial.init(this);
+                telaInicial.init();
             } else {
                 this.tentativas++; // 3 tentativas até Aparece a mensagem //
                 if (this.tentativas == 3) {

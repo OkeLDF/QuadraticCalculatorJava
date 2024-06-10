@@ -34,7 +34,7 @@ public class Menu extends JFrame {
     protected JPanel panel;
     protected JButton btnHistorico, btnCalcular, bntLogout, bntEdit;
     private Calc calcular = new Calc();
-    private Login login = new Login();
+    private Initial initial = new Initial();
     private Historico historico = new Historico();
     private Alterar alterar = new Alterar();
 
@@ -42,8 +42,7 @@ public class Menu extends JFrame {
 
     }
 
-    public void init(Login login) {
-        this.login = login;
+    public void init() {
         configurarJanela();
         configurarPanel();
         this.setVisible(true);
@@ -111,10 +110,8 @@ public class Menu extends JFrame {
             this.setVisible(false);
             this.calcular.init(this);
         } else if (this.bntLogout.equals(event.getSource())) {
-            login.dispose();
             this.dispose();
-            login = new Login();
-            login.init();
+            this.initial.init();
         } else if (this.btnHistorico.equals(event.getSource())) {
             this.setVisible(false);
             this.historico.init(this);
