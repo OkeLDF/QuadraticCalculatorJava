@@ -33,4 +33,8 @@ public abstract class MenuView {
         }
         return inputInt("\nSelecione uma opção: ");
     }
+
+    public static void clearScreen(){
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\033[2J");
+    }
 }

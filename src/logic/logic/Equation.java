@@ -26,9 +26,6 @@ public class Equation {
         
         this.delta = b*b - 4*a*c;
 
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(c);
 
         if(a == 0 && b == 0 && c == 0){
             this.setResults(0,0);
@@ -66,20 +63,20 @@ public class Equation {
 
     @Override
     public String toString(){
-        String prefix = this.getA() + "x² + " +
+        String prefix = "EQUAÇÃO:\n\n  " + this.getA() + "x² + " +
             this.getB() + "x + " +
             this.getC() + " = 0\n\n" +
-            "discriminante = " + this.getDelta() + "\n\n";
+            "  Delta = " + this.getDelta() + "\n\nRESULTADOS:\n\n";
         
         if(this.isImaginaryNumber){
             double res2 = Math.abs(this.getSecondResult());
             return prefix +
-            " x1 = " + this.getFirstResult() + " + " + res2 + " * i\n" +
-            " x2 = " + this.getFirstResult() + " - " + res2 + " * i";
+            "  x1 = " + this.getFirstResult() + " + " + res2 + " * i\n" +
+            "  x2 = " + this.getFirstResult() + " - " + res2 + " * i";
         }
         return prefix +
-            " x1 = " + this.getFirstResult() + "\n" +
-            " x2 = " + this.getSecondResult() + "\n";
+            "  x1 = " + this.getFirstResult() + "\n" +
+            "  x2 = " + this.getSecondResult();
     }
 
     public static double to3Digit(double x){
