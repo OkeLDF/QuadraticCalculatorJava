@@ -19,15 +19,15 @@ public class Historico implements Style {
     private JButton btnAnt = new JButton("<");
     private List<JButton> btns = Arrays.asList(btnAnt, btnProx);
     private int iterator = 0;
+    JLabel teste = new JLabel("1");
 
     public void init() {
-        calc.init();
-        configurar();
+        this.calc.init();
+        this.configurar();
         this.setarValores();
     }
 
     public void configurar() {
-        JLabel teste = new JLabel("0");
         teste.setForeground(Style.lightBlueColor);
         teste.setBackground(Style.darkBlueColor);
         teste.setFont(getMathFont());
@@ -44,19 +44,28 @@ public class Historico implements Style {
         });
 
         calc.getPanelBtn().setLayout(new FlowLayout(FlowLayout.LEFT, 105, 20));
-        calc.getPanelBtn().add(teste);
         calc.getPanelBtn().add(calc.getBtnVolta());
-        this.btns.forEach(calc.getPanelBtn()::add);
+        calc.getPanelBtn().add(this.btnAnt);
+        calc.getPanelBtn().add(this.teste);
+        calc.getPanelBtn().add(this.btnProx);
         this.btns.forEach(e -> e.addActionListener(this::navegar));
     }
 
     public void navegar(ActionEvent e) {
+        List<List<String>> historyEntries = Initial.currentUser.getHistoryEntries();
+
         if (this.btnProx.equals(e.getSource())) {
+            if (this.iterator >= historyEntries.size() - 1)
+                return;
             this.iterator++;
+            this.teste.setText("" + (this.iterator + 1));
             this.setarValores();
         }
         if (this.btnAnt.equals(e.getSource())) {
+            if (this.iterator == 0)
+                return;
             this.iterator--;
+            this.teste.setText("" + (this.iterator + 1));
             this.setarValores();
         }
     }
@@ -73,10 +82,11 @@ public class Historico implements Style {
         String valorRootValue = "";
 
         if (historyEntries != null) {
-            if (this.iterator < 0)
-                this.iterator = historyEntries.size() - 1;
-            if (this.iterator >= historyEntries.size())
-                this.iterator = 0;
+            // if (this.iterator < 0)
+            // return;
+
+            // if (this.iterator >= historyEntries.size()-1)
+            // return;
 
             List<String> test = historyEntries.get(this.iterator);
             valorA = test.get(0);

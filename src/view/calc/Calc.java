@@ -30,7 +30,7 @@ public class Calc extends Tela {
         this.jpDelta = new Panel();
         this.jpRoot = new Panel();
         this.jpBtn = new Panel();
-        this.btnCalcular = new JButton("CALCULAR: ");
+        this.btnCalcular = new JButton("CALCULAR");
     }
 
     public void init() {
@@ -50,6 +50,9 @@ public class Calc extends Tela {
         this.jpBtn.add(btnVolta);
         this.jpBtn.add(btnCalcular);
         this.jpBtn.setOpaque(false);
+        btnCalcular.setPreferredSize(new Dimension(120, 30));
+        btnVolta.setPreferredSize(new Dimension(120, 30));
+
     }
 
     public void configuarValuesPanel() {
