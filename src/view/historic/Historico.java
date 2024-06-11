@@ -34,7 +34,6 @@ public class Historico {
         });
         this.btns.forEach(calc.getPanelBtn()::add);
         this.btns.forEach(e -> e.addActionListener(this::navegar));
-
     }
 
     public void navegar(ActionEvent e) {

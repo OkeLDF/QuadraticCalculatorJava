@@ -72,12 +72,11 @@ public class Menu extends JFrame {
         List<JButton> bntList = Arrays.asList(bntEdit, btnHistorico, btnCalcular, bntLogout);
 
         bntList.forEach((btn) -> {
-            btn.setFont(new Font("Arial Black", Font.BOLD, 14));
+            btn.setFont(new Font("Arial Black", Font.PLAIN, 14));
             btn.setForeground(Color.black);
             btn.setBackground(Color.green);
             btn.setFocusPainted(false);
             btn.setPreferredSize(new Dimension(120, 30));
-
         });
 
         bntList.forEach(e -> e.addActionListener(this::escolha));
@@ -85,7 +84,6 @@ public class Menu extends JFrame {
     }
 
     private void escolha(ActionEvent event) {
-        System.out.println("opa");
         if (this.btnCalcular.equals(event.getSource())) {
             new Calc().init();
             this.dispose();

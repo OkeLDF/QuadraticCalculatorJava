@@ -31,7 +31,11 @@ public class Alterar extends Login {
             if(!senha.equals("")){
                 errorCode = Initial.currentUser.updatePassword(senha);
 
-                if(errorCode == COMMA_IN_STRING){
+                if(errorCode == INVALID_CHARACTER){
+                    JOptionPane.showMessageDialog(rootPane, "Não use barra ou contrabarra no nome ou senha!", "Tente Novamente",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+                else if(errorCode == COMMA_IN_STRING){
                     JOptionPane.showMessageDialog(rootPane, "Não use vírgula no nome ou senha!", "Tente Novamente",
                         JOptionPane.WARNING_MESSAGE);
                 }

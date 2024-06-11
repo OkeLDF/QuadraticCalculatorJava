@@ -85,7 +85,9 @@ public class User implements ErrorCodeNumbers{
         if(User.searchUser(name)) return USER_ALREADY_EXISTS;
         if(name.contains(",") || password.contains(",")) return COMMA_IN_STRING;
         if(name.equals("") || password.equals("")) return EMPTY_STRING;
-
+        if(name.contains("/") || name.contains("\\")) return INVALID_CHARACTER;
+        if(password.contains("/") || password.contains("\\")) return INVALID_CHARACTER;
+        
         try{
             BufferedWriter writer = new BufferedWriter(
                 new FileWriter(User.usersFileName.toString(), true));
@@ -128,6 +130,9 @@ public class User implements ErrorCodeNumbers{
     }
 
     public List<List<String>> getHistoryEntries() {
+        File fp = new File(this.historyPath.toString());
+        if(!fp.exists()) return null;
+
         List<String> rawHistory;
         
         try {
@@ -162,6 +167,7 @@ public class User implements ErrorCodeNumbers{
 
     public int updateName(String newName) {
         if(newName.contains(",")) return COMMA_IN_STRING;
+        if(newName.contains("/") || newName.contains("\\")) return INVALID_CHARACTER;
         if(searchUser(newName)){
             if(!newName.toLowerCase().equals(this.name.toLowerCase())){
                 return USER_ALREADY_EXISTS;
@@ -198,6 +204,7 @@ public class User implements ErrorCodeNumbers{
 
     public int updatePassword(String newPassword) {
         if(newPassword.contains(",")) return COMMA_IN_STRING;
+        if(newPassword.contains("/") || newPassword.contains("\\")) return INVALID_CHARACTER;
         
         List<String> newLines = new ArrayList<String>();
 

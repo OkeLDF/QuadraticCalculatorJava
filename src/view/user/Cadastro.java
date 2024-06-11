@@ -28,7 +28,11 @@ public class Cadastro extends Login {
         String senha = new String(this.txtpSenha.getPassword()); // converte o Password para s
         int errorCode = User.signUp(nome, senha);
 
-        if(errorCode == EMPTY_STRING){
+        if(errorCode == INVALID_CHARACTER){
+            JOptionPane.showMessageDialog(rootPane, "Não use barra ou contrabarra no nome ou senha!", "Tente Novamente",
+                JOptionPane.WARNING_MESSAGE);
+        }
+        else if(errorCode == EMPTY_STRING){
             JOptionPane.showMessageDialog(rootPane, "Não deixe campos vazios!", "Tente Novamente",
                 JOptionPane.WARNING_MESSAGE);
         }
