@@ -19,7 +19,6 @@ public class Calc extends Tela {
     private Panel jpExpression, jpTotal, jpResult, jpX, jpX2, jpDelta, jpRoot, jpBtn;
     private JButton btnCalcular;
     private Values values = new Values();
-    private Menu telaInicial;
     private boolean verificador = true;
 
     {
@@ -34,11 +33,11 @@ public class Calc extends Tela {
         this.btnCalcular = new JButton("CALCULAR: ");
     }
 
-    public void init(Menu anterior) {
-        this.telaInicial = anterior;
+    public void init() {
         this.configuraFrame();
         this.values.configurarValues();
         this.configuarPanel();
+        this.btnCalcular.addActionListener(e -> calcular(e));
     }
 
     public void definirBtns() {
@@ -156,8 +155,8 @@ public class Calc extends Tela {
 
     @Override
     public void volta(ActionEvent e) {
-        this.dispose();
-        this.telaInicial.setVisible(true);
+        this.dispose(); 
+        new Menu().init();
 
     }
 }

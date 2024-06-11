@@ -15,23 +15,11 @@ import calc.Calc;
 import historic.Historico;
 import user.Alterar;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author User
- */
 public class Menu extends JFrame {
 
     protected JPanel jpConfirma, jpCalc, jpVolta;
     protected JPanel panel;
     protected JButton btnHistorico, btnCalcular, bntLogout, bntEdit;
-    private Calc calcular = new Calc();
-    // private Initial initial = new Initial();
-    private Historico historico = new Historico();
-    private Alterar alterar = new Alterar();
 
     public Menu() {
 
@@ -74,10 +62,6 @@ public class Menu extends JFrame {
         this.jpCalc.add(this.btnHistorico);
         this.jpCalc.add(this.bntLogout);
 
-        this.btnHistorico.addActionListener(event -> escolha(event));
-        this.btnCalcular.addActionListener(event -> escolha(event));
-        this.bntLogout.addActionListener(event -> escolha(event));
-
     }
 
     private void configurarDados() {
@@ -101,18 +85,18 @@ public class Menu extends JFrame {
     }
 
     private void escolha(ActionEvent event) {
+        System.out.println("opa");
         if (this.btnCalcular.equals(event.getSource())) {
-            this.setVisible(false);
-            this.calcular.init(this);
+            new Calc().init();
+            this.dispose();
         } else if (this.bntLogout.equals(event.getSource())) {
             this.dispose();
-            Initial algo = new Initial(); //alterei 
-            algo.init();
+            new Initial().init();
         } else if (this.btnHistorico.equals(event.getSource())) {
-            this.setVisible(false);
-            this.historico.init(this);
+            this.dispose();
+            new Historico().init();
         } else if (this.bntEdit.equals(event.getSource())) {
-            alterar.init();
+            new Alterar().init();
             this.dispose();
         }
     }

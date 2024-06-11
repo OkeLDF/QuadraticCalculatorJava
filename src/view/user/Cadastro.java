@@ -4,11 +4,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
-import logic.ErrorCodeNumbers;
 import logic.User;
 import menu.Initial;
 
-public class Cadastro extends Login implements ErrorCodeNumbers {
+public class Cadastro extends Login {
 
     public void init() {
         super.init();
