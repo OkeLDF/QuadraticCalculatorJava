@@ -1,17 +1,17 @@
 package calc;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import logic.Equation;
+import menu.Initial;
 import menu.Menu;
+import menu.Style;
 
 public class Calc extends Tela {
     private Equation equation = new Equation();
@@ -19,8 +19,7 @@ public class Calc extends Tela {
     private Panel jpExpression, jpTotal, jpResult, jpX, jpX2, jpDelta, jpRoot, jpBtn;
     private JButton btnCalcular;
     private Values values = new Values();
-    private Menu telaInicial;
-    private Calc calcul;
+    private boolean verificador = true;
 
     {
         this.jpExpression = new Panel();
@@ -43,7 +42,9 @@ public class Calc extends Tela {
 
     public void definirBtns() {
         super.configurarBtn();
-        this.btnCalcular.setBackground(Color.green);
+        this.btnCalcular.setBackground(Style.lightBlueColor);
+        this.btnCalcular.setForeground(Style.darkBlueColor);
+        this.btnCalcular.addActionListener(this::calcular);
         this.jpBtn.definiTamanho(800, 50);
         this.jpBtn.setLayout(new FlowLayout(FlowLayout.LEFT, 175, 20));
         this.jpBtn.add(btnVolta);
@@ -54,14 +55,15 @@ public class Calc extends Tela {
     public void configuarValuesPanel() {
         List<Panel> configurarResult = Arrays.asList(jpX, jpX2, jpDelta, jpRoot);
         configurarResult.forEach((e) -> {
-            e.setOpaque(true);
-            e.setBackground(Color.black);
+
+            e.setOpaque(false);
+            e.setBackground(Style.darkBlueColor);
             e.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 0));
             e.definiTamanho(700, 40);
             jpResult.add(e);
         });
-        jpX.add(values.getxLinha1());
-        jpX2.add(values.getx2Label());
+        jpX.add(values.getXLinha1());
+        jpX2.add(values.getXLinha2());
         jpDelta.add(values.getDeltaLabel());
         jpRoot.add(values.getRootLabel());
     }
@@ -77,8 +79,8 @@ public class Calc extends Tela {
 
     public void setResult(Double x, Double x2, Double delta, Integer root) {
         if (delta < 0) {
-            this.values.setxLabelValue(x + " + " + x2 + "*i");
-            this.values.setx2LabelValue(x + " - " + x2 + "*i");
+            this.values.setxLabelValue(x + " + " + x2 + " x i");
+            this.values.setx2LabelValue(x + " - " + x2 + " x i");
             this.values.setDeltaLabelValue(delta + "");
             this.values.setRootLabel(root);
             return;
@@ -105,6 +107,7 @@ public class Calc extends Tela {
 
         this.values.getExpression().forEach(jpExpression::add);
         this.jpTotal.add(jpExpression);
+
         this.jpTotal.setOpaque(false);
         this.definirBtns();
         this.configuarResultPane();
@@ -139,21 +142,25 @@ public class Calc extends Tela {
     }
 
     public void calcular(ActionEvent e) {
-        if (!this.catchValue())
-            return;
 
-        System.out.println("0");
-        this.equation.setCoeficients(this.a, this.b, this.c);
+        
+        // if(this.btnCalcular.equals(e.getSource())){
+        if(verificador){
+            if (!this.catchValue())
+                return;
+            this.equation.setCoeficients(this.a, this.b, this.c);
+            Initial.currentUser.saveOnHistory(equation);
 
-        this.setResult(this.equation.getFirstResult(), this.equation.getSecondResult(), this.equation.getDelta(),
-                this.equation.getRootsQuantity());
+            this.setResult(this.equation.getFirstResult(), this.equation.getSecondResult(), this.equation.getDelta(),
+                    this.equation.getRootsQuantity());
+        }
+        verificador = !verificador;
     }
 
     @Override
     public void volta(ActionEvent e) {
-        this.dispose();
-        Menu menu = new Menu();
-        menu.init();
+        this.dispose(); 
+        new Menu().init();
 
     }
 }

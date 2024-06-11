@@ -1,42 +1,24 @@
 package menu;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import calc.Calc;
 import historic.Historico;
 import user.Alterar;
-import user.Login;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author User
- */
 public class Menu extends JFrame {
 
     protected JPanel jpConfirma, jpCalc, jpVolta;
     protected JPanel panel;
     protected JButton btnHistorico, btnCalcular, bntLogout, bntEdit;
-    private Calc calcular;
-    private Initial initial;
-    private Historico historico;
-    private Alterar alterar;
 
     public Menu() {
 
@@ -56,7 +38,7 @@ public class Menu extends JFrame {
 
     protected void configurarJanela() {
         panel = new JPanel();
-        this.panel.setBackground(Color.black);
+        this.panel.setBackground(Style.darkGreenColor);
         this.panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 130));
         this.add(panel);
         this.setTitle("Tela Inicial");
@@ -72,10 +54,10 @@ public class Menu extends JFrame {
         jpConfirma = new JPanel(); // será utilizado por suas subclasses
         jpVolta = new JPanel(); // será utilizado por suas subclasses
 
-        this.jpCalc.setLayout(new FlowLayout(FlowLayout.LEFT, 90, 40));
+        this.jpCalc.setLayout(new FlowLayout(FlowLayout.LEFT, 70, 40));
         this.jpCalc.setPreferredSize(new Dimension(490, 500));
-        this.jpCalc.setBackground(Color.darkGray);
-        this.jpCalc.setOpaque(false);
+        this.jpCalc.setBackground(Style.darkGreenColor);
+        this.jpCalc.setOpaque(true);
 
         this.panel.add(this.jpCalc);
 
@@ -84,10 +66,6 @@ public class Menu extends JFrame {
         this.jpCalc.add(this.bntEdit);
         this.jpCalc.add(this.btnHistorico);
         this.jpCalc.add(this.bntLogout);
-
-        this.btnHistorico.addActionListener(event -> escolha(event));
-        this.btnCalcular.addActionListener(event -> escolha(event));
-        this.bntLogout.addActionListener(event -> escolha(event));
 
     }
 
@@ -99,30 +77,27 @@ public class Menu extends JFrame {
         List<JButton> bntList = Arrays.asList(bntEdit, btnHistorico, btnCalcular, bntLogout);
 
         bntList.forEach((btn) -> {
-            btn.setFont(new Font("Arial Black", Font.BOLD, 14));
-            btn.setForeground(Color.black);
-            btn.setBackground(Color.green);
+            btn.setFont(new Font("Arial Black", Font.PLAIN, 14));
+            btn.setForeground(Style.darkGreenColor);
+            btn.setBackground(Style.lightGreenColor);
             btn.setFocusPainted(false);
-            btn.setPreferredSize(new Dimension(120, 30));
-
+            btn.setPreferredSize(new Dimension(140, 30));
         });
 
     }
 
     private void escolha(ActionEvent event) {
         if (this.btnCalcular.equals(event.getSource())) {
+            new Calc().init();
             this.dispose();
-            Calc calc = new Calc(); // alterei
-            calc.init();
         } else if (this.bntLogout.equals(event.getSource())) {
             this.dispose();
-            Initial algo = new Initial(); // alterei
-            algo.init(); 
+            new Initial().init();
         } else if (this.btnHistorico.equals(event.getSource())) {
-            Historico historico = new Historico();
-            historico.init();
+            this.dispose();
+            new Historico().init();
         } else if (this.bntEdit.equals(event.getSource())) {
-            alterar.init();
+            new Alterar().init();
             this.dispose();
         }
     }
