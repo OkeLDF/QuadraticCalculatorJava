@@ -1,11 +1,13 @@
 package historic;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Arrays;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import calc.Calc;
 import menu.Initial;
@@ -25,6 +27,13 @@ public class Historico implements Style {
     }
 
     public void configurar() {
+        JLabel teste = new JLabel("0");
+        teste.setForeground(Style.lightBlueColor);
+        teste.setBackground(Style.darkBlueColor);
+        teste.setFont(getMathFont());
+        this.calc.getPanelBtn().remove(this.calc.getBtnCalc());
+        this.calc.getPanelBtn().remove(this.calc.getBtnVolta());
+
         this.calc.getPanelBtn().remove(this.calc.getBtnCalc());
         this.calc.getValues().getExpression().forEach(calc.getExpressionPane()::remove);
         this.calc.getValues().getExpressionStatic().forEach(calc.getExpressionPane()::add);
@@ -33,6 +42,10 @@ public class Historico implements Style {
             e.setBackground(Style.lightBlueColor);
             e.setForeground(Style.darkBlueColor);
         });
+
+        calc.getPanelBtn().setLayout(new FlowLayout(FlowLayout.LEFT, 105, 20));
+        calc.getPanelBtn().add(teste);
+        calc.getPanelBtn().add(calc.getBtnVolta());
         this.btns.forEach(calc.getPanelBtn()::add);
         this.btns.forEach(e -> e.addActionListener(this::navegar));
     }

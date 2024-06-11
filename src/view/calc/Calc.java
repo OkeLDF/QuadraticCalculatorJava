@@ -72,7 +72,7 @@ public class Calc extends Tela {
         this.configuarValuesPanel();
         this.jpResult.definiTamanho(800, 220);
         this.jpResult.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 10));
-        this.jpResult.setOpaque(true);
+        this.jpResult.setOpaque(false);
         this.jpTotal.add(jpResult);
         this.jpTotal.add(jpBtn);
     }

@@ -82,6 +82,7 @@ public class Menu extends JFrame {
             btn.setBackground(Style.lightGreenColor);
             btn.setFocusPainted(false);
             btn.setPreferredSize(new Dimension(140, 30));
+            btn.addActionListener(this::escolha);
         });
 
     }
