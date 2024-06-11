@@ -39,11 +39,11 @@ public class Historico {
 
     public void navegar(ActionEvent e) {
         if (this.btnProx.equals(e.getSource())) {
-            this.iterator--;
+            this.iterator++;
             this.setarValores();
         }
         if(this.btnAnt.equals(e.getSource())){
-            this.iterator++;
+            this.iterator--;
             this.setarValores();
         }
     }
@@ -51,19 +51,28 @@ public class Historico {
     public void setarValores() {
         List<List<String>> historyEntries = Initial.currentUser.getHistoryEntries();
 
-        if(this.iterator<0) this.iterator = historyEntries.size()-1;
-        if(this.iterator>=historyEntries.size()) this.iterator = 0;
+        String valorA = "";
+        String valorB = "";
+        String valorC = "";
+        String valorDelta = "";
+        String valorXLinha1 = "";
+        String valorXLinha2 = "";
+        String valorRootValue = "";
+
+        if(historyEntries!=null){
+            if(this.iterator<0) this.iterator = historyEntries.size()-1;
+            if(this.iterator>=historyEntries.size()) this.iterator = 0;
+            
+            List<String> test = historyEntries.get(this.iterator);
+            valorA = test.get(0);
+            valorB = test.get(1);
+            valorC = test.get(2);
+            valorDelta = test.get(3);
+            valorXLinha1 = test.get(4);
+            valorXLinha2 = test.get(5);
+            valorRootValue = test.get(6);
+        }
         
-        List<String> test = historyEntries.get(this.iterator);
-
-        String valorA = test.get(0);
-        String valorB = test.get(1);
-        String valorC = test.get(2);
-        String valorDelta = test.get(3);
-        String valorXLinha1 = test.get(4);
-        String valorXLinha2 = test.get(5);
-        String valorRootValue = test.get(6);
-
         this.calc.getValues().getXQuadrado().setText(valorA + "x²");
         this.calc.getValues().getX().setText(" + " + valorB + "x");
         this.calc.getValues().getZero().setText(" + " + valorC + " = 0");

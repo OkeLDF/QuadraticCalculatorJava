@@ -16,10 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import logic.ErrorCodeNumbers;
 import menu.Initial;
 import menu.Menu;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ErrorCodeNumbers{
     protected int tentativas;
     protected JPanel jpnLogin;
     protected JLabel lblSenha, lblUsuario;
@@ -97,7 +98,7 @@ public class Login extends JFrame {
         String nome = new String(this.txtUsuario.getText()); // converte o Password para s
         String senha = new String(this.txtpSenha.getPassword()); // converte o Password para s
         
-        Initial.currentUser.login(nome, senha);
+        int errorCode = Initial.currentUser.login(nome, senha);
 
         if (event.getSource() == this.bntInside) {
             // validade = algo
@@ -105,7 +106,21 @@ public class Login extends JFrame {
                 this.dispose();
                 Menu telaInicial = new Menu();
                 telaInicial.init();
-            } else {
+                return;
+            }
+            if(errorCode==EMPTY_STRING){
+                JOptionPane.showMessageDialog(rootPane, "Não deixe campos vazios!", "Tente Novamente",
+                JOptionPane.WARNING_MESSAGE);
+            }
+            else if(errorCode==COMMA_IN_STRING){
+                JOptionPane.showMessageDialog(rootPane, "Não deixe campos vazios!", "Tente Novamente",
+                JOptionPane.WARNING_MESSAGE);
+            }
+            else if(errorCode==WRONG_PASSWORD){
+                JOptionPane.showMessageDialog(rootPane, "Senha incorreta!", "Tente Novamente",
+                JOptionPane.WARNING_MESSAGE);
+            }
+            else{
                 this.tentativas++; // 3 tentativas até Aparece a mensagem //
                 if (this.tentativas == 3) {
                     JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos", "Tente Novamente",
@@ -113,7 +128,6 @@ public class Login extends JFrame {
                     this.tentativas = 0;
                 }
             }
-
         }
     }
 

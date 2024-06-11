@@ -4,11 +4,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
-import logic.ErrorCodeNumbers;
 import menu.Initial;
 import menu.Menu;
 
-public class Alterar extends Login implements ErrorCodeNumbers{
+public class Alterar extends Login {
 
     public void voltar(ActionEvent event) {
         if (event.getSource() == this.btnAction) { // bnt de volta

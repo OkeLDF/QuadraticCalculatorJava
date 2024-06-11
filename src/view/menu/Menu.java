@@ -15,22 +15,11 @@ import calc.Calc;
 import historic.Historico;
 import user.Alterar;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author User
- */
 public class Menu extends JFrame {
 
     protected JPanel jpConfirma, jpCalc, jpVolta;
     protected JPanel panel;
     protected JButton btnHistorico, btnCalcular, bntLogout, bntEdit;
-    private Calc calcular;
-    private Historico historico;
-    private Alterar alterar;
 
     public Menu() {
 
@@ -40,9 +29,6 @@ public class Menu extends JFrame {
         configurarJanela();
         configurarPanel();
         this.setVisible(true);
-        calcular = new Calc();
-        historico = new Historico();
-        alterar = new Alterar();
     }
 
     protected void configurarJanela() {

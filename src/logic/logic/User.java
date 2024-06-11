@@ -43,6 +43,8 @@ public class User implements ErrorCodeNumbers{
 
     public int login(String name, String password) {
         List<String> lines = null;
+        this.isLogged = false;
+
         try {
             lines = Files.readAllLines(usersFileName);
         }
@@ -68,10 +70,9 @@ public class User implements ErrorCodeNumbers{
             return USER_NOT_FOUND;
         } // usuário não encontrado
 
-        if(!password.equals(userCredentials.split(",")[1])){
-            this.isLogged = false;
-            return WRONG_PASSWORD;
-        } // senha incorreta
+        if(name.equals("") || password.equals("")) return EMPTY_STRING;
+        if(name.contains(",") || password.contains(",")) return COMMA_IN_STRING;
+        if(!password.equals(userCredentials.split(",")[1])) return WRONG_PASSWORD;
 
         this.isLogged = true;
         this.historyFileName = this.name + "_history.csv";

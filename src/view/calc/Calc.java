@@ -19,7 +19,6 @@ public class Calc extends Tela {
     private Panel jpExpression, jpTotal, jpResult, jpX, jpX2, jpDelta, jpRoot, jpBtn;
     private JButton btnCalcular;
     private Values values = new Values();
-    private Menu telaInicial;
     private boolean verificador = true;
 
     {
