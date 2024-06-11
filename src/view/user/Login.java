@@ -128,7 +128,7 @@ public class Login extends JFrame implements ErrorCodeNumbers, Style {
                 JOptionPane.showMessageDialog(rootPane, "Senha incorreta!", "Tente Novamente",
                         JOptionPane.WARNING_MESSAGE);
             } else {
-                this.tentativas++; // 3 tentativas até Aparece a mensagem //
+                this.tentativas++; 
                 if (this.tentativas == 3) {
                     JOptionPane.showMessageDialog(rootPane, "Usuario ou senha incorretos", "Tente Novamente",
                             JOptionPane.WARNING_MESSAGE);
