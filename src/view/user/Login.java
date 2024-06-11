@@ -49,7 +49,7 @@ public class Login extends JFrame implements ErrorCodeNumbers, Style {
 
     public void components() {
         jpnLogin = new JPanel();
-        lblUsuario = new JLabel("USUARIO:");
+        lblUsuario = new JLabel("USUARIO");
         lblSenha = new JLabel("SENHA");
         txtUsuario = new JTextField();
         txtpSenha = new JPasswordField();

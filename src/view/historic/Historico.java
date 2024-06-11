@@ -1,11 +1,13 @@
 package historic;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Arrays;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 import calc.Calc;
 import menu.Initial;
@@ -17,14 +19,21 @@ public class Historico implements Style {
     private JButton btnAnt = new JButton("<");
     private List<JButton> btns = Arrays.asList(btnAnt, btnProx);
     private int iterator = 0;
+    JLabel teste = new JLabel("1");
 
     public void init() {
-        calc.init();
-        configurar();
+        this.calc.init();
+        this.configurar();
         this.setarValores();
     }
 
     public void configurar() {
+        teste.setForeground(Style.lightBlueColor);
+        teste.setBackground(Style.darkBlueColor);
+        teste.setFont(getMathFont());
+        this.calc.getPanelBtn().remove(this.calc.getBtnCalc());
+        this.calc.getPanelBtn().remove(this.calc.getBtnVolta());
+
         this.calc.getPanelBtn().remove(this.calc.getBtnCalc());
         this.calc.getValues().getExpression().forEach(calc.getExpressionPane()::remove);
         this.calc.getValues().getExpressionStatic().forEach(calc.getExpressionPane()::add);
@@ -33,17 +42,30 @@ public class Historico implements Style {
             e.setBackground(Style.lightBlueColor);
             e.setForeground(Style.darkBlueColor);
         });
-        this.btns.forEach(calc.getPanelBtn()::add);
+
+        calc.getPanelBtn().setLayout(new FlowLayout(FlowLayout.LEFT, 105, 20));
+        calc.getPanelBtn().add(calc.getBtnVolta());
+        calc.getPanelBtn().add(this.btnAnt);
+        calc.getPanelBtn().add(this.teste);
+        calc.getPanelBtn().add(this.btnProx);
         this.btns.forEach(e -> e.addActionListener(this::navegar));
     }
 
     public void navegar(ActionEvent e) {
+        List<List<String>> historyEntries = Initial.currentUser.getHistoryEntries();
+
         if (this.btnProx.equals(e.getSource())) {
+            if (this.iterator >= historyEntries.size() - 1)
+                return;
             this.iterator++;
+            this.teste.setText("" + (this.iterator + 1));
             this.setarValores();
         }
         if (this.btnAnt.equals(e.getSource())) {
+            if (this.iterator == 0)
+                return;
             this.iterator--;
+            this.teste.setText("" + (this.iterator + 1));
             this.setarValores();
         }
     }
@@ -60,10 +82,11 @@ public class Historico implements Style {
         String valorRootValue = "";
 
         if (historyEntries != null) {
-            if (this.iterator < 0)
-                this.iterator = historyEntries.size() - 1;
-            if (this.iterator >= historyEntries.size())
-                this.iterator = 0;
+            // if (this.iterator < 0)
+            // return;
+
+            // if (this.iterator >= historyEntries.size()-1)
+            // return;
 
             List<String> test = historyEntries.get(this.iterator);
             valorA = test.get(0);

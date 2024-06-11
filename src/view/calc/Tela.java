@@ -30,4 +30,8 @@ public abstract class Tela extends JFrame {
         this.setVisible(true);
 
     }
+
+    public JButton getBtnVolta() {
+        return btnVolta;
+    }
 }
