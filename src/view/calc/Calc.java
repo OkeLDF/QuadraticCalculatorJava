@@ -1,6 +1,5 @@
 package calc;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +11,7 @@ import javax.swing.JPanel;
 import logic.Equation;
 import menu.Initial;
 import menu.Menu;
+import menu.Style;
 
 public class Calc extends Tela {
     private Equation equation = new Equation();
@@ -42,7 +42,8 @@ public class Calc extends Tela {
 
     public void definirBtns() {
         super.configurarBtn();
-        this.btnCalcular.setBackground(Color.green);
+        this.btnCalcular.setBackground(Style.lightBlueColor);
+        this.btnCalcular.setForeground(Style.darkBlueColor);
         this.btnCalcular.addActionListener(this::calcular);
         this.jpBtn.definiTamanho(800, 50);
         this.jpBtn.setLayout(new FlowLayout(FlowLayout.LEFT, 175, 20));
@@ -55,7 +56,7 @@ public class Calc extends Tela {
         List<Panel> configurarResult = Arrays.asList(jpX, jpX2, jpDelta, jpRoot);
         configurarResult.forEach((e) -> {
             e.setOpaque(false);
-            e.setBackground(Color.black);
+            e.setBackground(Style.darkBlueColor);
             e.setLayout(new FlowLayout(FlowLayout.LEFT, 50, 0));
             e.definiTamanho(700, 40);
             jpResult.add(e);
@@ -77,8 +78,8 @@ public class Calc extends Tela {
 
     public void setResult(Double x, Double x2, Double delta, Integer root) {
         if (delta < 0) {
-            this.values.setxLabelValue(x + " + " + x2 + " * i");
-            this.values.setx2LabelValue(x + " - " + x2 + " * i");
+            this.values.setxLabelValue(x + " + " + x2 + " x i");
+            this.values.setx2LabelValue(x + " - " + x2 + " x i");
             this.values.setDeltaLabelValue(delta + "");
             this.values.setRootLabel(root);
             return;
@@ -105,6 +106,7 @@ public class Calc extends Tela {
 
         this.values.getExpression().forEach(jpExpression::add);
         this.jpTotal.add(jpExpression);
+
         this.jpTotal.setOpaque(false);
         this.definirBtns();
         this.configuarResultPane();

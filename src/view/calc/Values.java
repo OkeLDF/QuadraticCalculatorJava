@@ -1,8 +1,6 @@
 package calc;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +8,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class Values {
+import menu.Style;
+
+public class Values implements Style{
     private JTextField a, b, c;
     private List<JTextField> field = Arrays.asList(a = new JTextField(), b = new JTextField(), c = new JTextField());
     private JLabel x = new JLabel("x + "), x2 = new JLabel("x² + "), zero = new JLabel("= 0");
@@ -52,19 +52,18 @@ public class Values {
     }
 
     public void valuesExpression() {
-
         this.field.forEach(e -> {
-            e.setFont(new Font("Arial Black", Font.PLAIN, 26));
-            e.setForeground(Color.white);
-            e.setBackground(Color.black);
+            e.setFont(getMathFont());
+            e.setForeground(Style.lightBlueColor);
+            e.setBackground(Style.darkBlueColor);
             e.setPreferredSize(new Dimension(100, 40));
         });
     }
 
     public void configurarValues() {
         this.labels.forEach(e -> {
-            e.setFont(new Font("Arial Black", Font.PLAIN, 26));
-            e.setForeground(Color.white);
+            e.setFont(getMathFont());
+            e.setForeground(Style.lightBlueColor);
         });
     }
 

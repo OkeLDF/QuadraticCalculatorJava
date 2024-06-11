@@ -1,6 +1,5 @@
 package historic;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -10,8 +9,9 @@ import javax.swing.JButton;
 
 import calc.Calc;
 import menu.Initial;
+import menu.Style;
 
-public class Historico {
+public class Historico implements Style {
     private Calc calc = new Calc();
     private JButton btnProx = new JButton(">");
     private JButton btnAnt = new JButton("<");
@@ -30,7 +30,8 @@ public class Historico {
         this.calc.getValues().getExpressionStatic().forEach(calc.getExpressionPane()::add);
         this.calc.getExpressionPane().setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         this.btns.forEach((e) -> {
-            e.setBackground(Color.green);
+            e.setBackground(Style.lightBlueColor);
+            e.setForeground(Style.darkBlueColor);
         });
         this.btns.forEach(calc.getPanelBtn()::add);
         this.btns.forEach(e -> e.addActionListener(this::navegar));
@@ -58,7 +59,7 @@ public class Historico {
         String valorXLinha2 = "";
         String valorRootValue = "";
 
-        if(historyEntries!=null){
+        if(historyEntries != null){
             if(this.iterator<0) this.iterator = historyEntries.size()-1;
             if(this.iterator>=historyEntries.size()) this.iterator = 0;
             

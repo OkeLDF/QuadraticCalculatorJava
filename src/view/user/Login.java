@@ -1,7 +1,7 @@
 package user;
 
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
@@ -19,8 +19,9 @@ import javax.swing.JTextField;
 import logic.ErrorCodeNumbers;
 import menu.Initial;
 import menu.Menu;
+import menu.Style;
 
-public class Login extends JFrame implements ErrorCodeNumbers{
+public class Login extends JFrame implements ErrorCodeNumbers, Style{
     protected int tentativas;
     protected JPanel jpnLogin;
     protected JLabel lblSenha, lblUsuario;
@@ -38,7 +39,7 @@ public class Login extends JFrame implements ErrorCodeNumbers{
 
     public void configurarJanela() {
         this.add(this.fundo);
-        this.fundo.setBackground(Color.black);
+        this.fundo.setBackground(Style.darkGreenColor);
         this.setSize(1000, 500);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,29 +62,37 @@ public class Login extends JFrame implements ErrorCodeNumbers{
                 bntInside);
         List<JButton> btns = Arrays.asList(btnAction, bntInside);
         this.jpnLogin.setPreferredSize(new Dimension(400, 600));
-        this.jpnLogin.setBackground(Color.black);
+        this.jpnLogin.setBackground(Style.darkGreenColor);
         this.jpnLogin.setOpaque(false);
+        
+        this.jpnLogin.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 90));
+
         this.fundo.add(this.jpnLogin);
 
-        this.lblUsuario.setForeground(Color.green);
+        this.lblUsuario.setForeground(Style.lightGreenColor);
         this.lblUsuario.setFont(new Font("Arial Black", Font.PLAIN, 16));
-        this.lblUsuario.setPreferredSize(new Dimension(150, 200));
-        this.txtUsuario.setPreferredSize(new Dimension(207, 25));
-        this.txtUsuario.setFont(new Font("Arial black", Font.BOLD, 12));
-        this.txtUsuario.setBackground(Color.black);
-        this.txtUsuario.setForeground(Color.green);
+        this.lblUsuario.setPreferredSize(new Dimension(150, 20));
 
-        this.lblSenha.setForeground(Color.green);
+        this.txtUsuario.setPreferredSize(new Dimension(207, 25));
+        this.txtUsuario.setFont(getPixelFont());
+        // this.txtUsuario.setFont(new Font("Arial black", Font.BOLD, 12));
+        this.txtUsuario.setBackground(Style.darkGreenColor);
+        this.txtUsuario.setForeground(Style.lightGreenColor);
+
+        this.lblSenha.setForeground(Style.lightGreenColor);
         this.lblSenha.setFont(new Font("Arial Black", Font.PLAIN, 16));
-        this.lblSenha.setPreferredSize(new Dimension(150, 170));
-        this.txtpSenha.setFont(new Font("Arial Black", Font.BOLD, 12));
+        this.lblSenha.setPreferredSize(new Dimension(150, 20));
+        
+        this.txtpSenha.setFont(getPixelFont());
+        // this.txtpSenha.setFont(new Font("Arial Black", Font.BOLD, 12));
         this.txtpSenha.setPreferredSize(new Dimension(207, 25));
-        this.txtpSenha.setBackground(Color.black);
-        this.txtpSenha.setForeground(Color.green);
+        this.txtpSenha.setBackground(Style.darkGreenColor);
+        this.txtpSenha.setForeground(Style.lightGreenColor);
 
         btns.forEach((e) -> {
             e.setPreferredSize(new Dimension(120, 30));
-            e.setBackground(Color.green);
+            e.setBackground(Style.lightGreenColor);
+            e.setForeground(Style.darkGreenColor);
         });
 
         components.forEach(e -> jpnLogin.add(e));

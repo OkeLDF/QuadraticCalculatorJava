@@ -1,6 +1,5 @@
 package menu;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -33,7 +32,7 @@ public class Menu extends JFrame {
 
     protected void configurarJanela() {
         panel = new JPanel();
-        this.panel.setBackground(Color.black);
+        this.panel.setBackground(Style.darkGreenColor);
         this.panel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 130));
         this.add(panel);
         this.setTitle("Tela Inicial");
@@ -49,10 +48,10 @@ public class Menu extends JFrame {
         jpConfirma = new JPanel(); // será utilizado por suas subclasses
         jpVolta = new JPanel(); // será utilizado por suas subclasses
 
-        this.jpCalc.setLayout(new FlowLayout(FlowLayout.LEFT, 90, 40));
+        this.jpCalc.setLayout(new FlowLayout(FlowLayout.LEFT, 70, 40));
         this.jpCalc.setPreferredSize(new Dimension(490, 500));
-        this.jpCalc.setBackground(Color.darkGray);
-        this.jpCalc.setOpaque(false);
+        this.jpCalc.setBackground(Style.darkGreenColor);
+        this.jpCalc.setOpaque(true);
 
         this.panel.add(this.jpCalc);
 
@@ -73,10 +72,10 @@ public class Menu extends JFrame {
 
         bntList.forEach((btn) -> {
             btn.setFont(new Font("Arial Black", Font.PLAIN, 14));
-            btn.setForeground(Color.black);
-            btn.setBackground(Color.green);
+            btn.setForeground(Style.darkGreenColor);
+            btn.setBackground(Style.lightGreenColor);
             btn.setFocusPainted(false);
-            btn.setPreferredSize(new Dimension(120, 30));
+            btn.setPreferredSize(new Dimension(140, 30));
         });
 
         bntList.forEach(e -> e.addActionListener(this::escolha));
